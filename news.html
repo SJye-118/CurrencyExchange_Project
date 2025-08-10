@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NewsPulse - Multi-Source News Feed</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --secondary: #64748b;
+      --accent: #f59e0b;
+      --success: #10b981;
+      --danger: #ef4444;
+      --background: #0f172a;
+      --surface: #1e293b;
+      --surface-light: #334155;
+      --text: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --border: #475569;
+      --shadow: rgba(0, 0, 0, 0.3);
+    }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, var(--background) 0%, #1a202c 100%);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    header {
+      background: rgba(30, 41, 59, 0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .logo::before {
+      content: "📰";
+      font-size: 1.8rem;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .refresh-btn {
+      background: linear-gradient(45deg, var(--primary), var(--primary-dark));
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .refresh-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3);
+    }
+
+    .refresh-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid transparent;
+      border-top: 2px solid currentColor;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      overflow-x: auto;
+      padding: 0.5rem 0;
+    }
+
+    .filter-tab {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      font-size: 0.9rem;
+    }
+
+    .filter-tab:hover {
+      background: var(--surface-light);
+      color: var(--text);
+    }
+
+    .filter-tab.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .stat-label {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .news-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .news-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px var(--shadow);
+      border-color: var(--primary);
+    }
+
+    .news-item.fade-in {
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .news-content {
+      padding: 1.5rem;
+    }
+
+    .news-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+      color: var(--text);
+      text-decoration: none;
+      display: block;
+    }
+
+    .news-title:hover {
+      color: var(--primary);
+    }
+
+    .news-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .source-tag {
+      background: var(--primary);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .source-tag.bbc {
+      background: #bb1919;
+    }
+
+    .source-tag.nyt {
+      background: #000;
+    }
+
+    .news-description {
+      color: var(--text-secondary);
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .loading-state {
+      text-align: center;
+      padding: 4rem;
+      color: var(--text-secondary);
+    }
+
+    .loading-state .spinner {
+      width: 40px;
+      height: 40px;
+      border-width: 3px;
+      margin: 0 auto 1rem;
+    }
+
+    .error-state {
+      text-align: center;
+      padding: 4rem;
+      color: var(--danger);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 4rem;
+      color: var(--text-secondary);
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 0.5rem;
+      }
+
+      .header-content {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .news-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .scroll-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .scroll-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .scroll-to-top:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">NewsPulse</div>
+        <div class="controls">
+          <button class="refresh-btn" id="refreshBtn">
+            <span id="refreshIcon">🔄</span>
+            Refresh
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="stats" id="stats" style="display: none;">
+      <div class="stat-card">
+        <div class="stat-number" id="totalArticles">0</div>
+        <div class="stat-label">Total Articles</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="activeSources">0</div>
+        <div class="stat-label">Active Sources</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="lastUpdate">--</div>
+        <div class="stat-label">Last Updated</div>
+      </div>
+    </div>
+
+    <div class="filter-tabs" id="filterTabs" style="display: none;">
+        <div class="filter-tab active" data-filter="all">All News</div>
+        <div class="filter-tab" data-filter="CNA Tech">CNA Tech</div>
+        <div class="filter-tab" data-filter="CNA Economy">CNA Economy</div>
+        <div class="filter-tab" data-filter="NYT Tech">NYT Tech</div>
+        <div class="filter-tab" data-filter="NYT Economy">NYT Economy</div>
+        <div class="filter-tab" data-filter="BBC Business">BBC Business</div>
+        <div class="filter-tab" data-filter="BBC Tech">BBC Tech</div>
+
+    </div>
+
+    <div id="newsContainer">
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <div>Loading latest news from multiple sources...</div>
+      </div>
+    </div>
+  </main>
+
+  <button class="scroll-to-top" id="scrollToTop">↑</button>
+
+  <script>
+    const feeds = [
+    { url: 'https://feeds.bbci.co.uk/news/business/rss.xml', name: 'BBC Business' },
+    { url: 'https://rss.nytimes.com/services/xml/rss/nyt/Economy.xml', name: 'NYT Economy' },
+    { url: 'https://feeds.bbci.co.uk/news/technology/rss.xml', name: 'BBC Tech' },
+    { url: 'https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml', name: 'NYT Tech' },
+    { url: 'https://www.channelnewsasia.com/api/v1/rss-outbound-feed?_format=xml&category=6936', name: 'CNA Economy' },
+    { url: 'https://www.channelnewsasia.com/api/v1/rss-outbound-feed?_format=xml&category=6936', name: 'CNA Tech' }
+
+    ];
+
+    let allArticles = [];
+    let filteredArticles = [];
+    let isLoading = false;
+    let currentFilter = 'all';
+
+    const elements = {
+      container: document.getElementById('newsContainer'),
+      refreshBtn: document.getElementById('refreshBtn'),
+      refreshIcon: document.getElementById('refreshIcon'),
+      stats: document.getElementById('stats'),
+      filterTabs: document.getElementById('filterTabs'),
+      totalArticles: document.getElementById('totalArticles'),
+      activeSources: document.getElementById('activeSources'),
+      lastUpdate: document.getElementById('lastUpdate'),
+      scrollToTop: document.getElementById('scrollToTop')
+    };
+
+    function getSourceClass(sourceName) {
+      if (sourceName.includes('BBC')) return 'bbc';
+      if (sourceName.includes('NYT')) return 'nyt';
+      if (sourceName.includes('CNN')) return 'cnn';
+      if (sourceName.includes('CNA')) return 'cna';
+      return '';
+    }
+
+    function formatTimeAgo(dateString) {
+      const now = new Date();
+      const date = new Date(dateString);
+      const diffInSeconds = Math.floor((now - date) / 1000);
+      
+      if (diffInSeconds < 60) return 'Just now';
+      if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)}m ago`;
+      if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)}h ago`;
+      return `${Math.floor(diffInSeconds / 86400)}d ago`;
+    }
+
+    function cleanDescription(description) {
+      if (!description) return '';
+      return description
+        .replace(/<[^>]*>/g, '')
+        .replace(/&[^;]+;/g, '')
+        .trim()
+        .substring(0, 200) + '...';
+    }
+
+    async function fetchFeed(feed) {
+      const jsonUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)}`;
+      
+      try {
+        const resp = await fetch(jsonUrl);
+        if (!resp.ok) throw new Error(`Failed to fetch ${feed.name}`);
+        
+        const data = await resp.json();
+        if (data.status !== 'ok') throw new Error(`Error in feed ${feed.name}`);
+        
+        return data.items.map(item => ({
+          ...item,
+          source: feed.name,
+          id: `${feed.name}-${item.link}`,
+          cleanDescription: cleanDescription(item.description)
+        }));
+      } catch (error) {
+        console.warn(`Failed to load ${feed.name}:`, error);
+        return [];
+      }
+    }
+
+    function renderArticles(articles) {
+      if (articles.length === 0) {
+        elements.container.innerHTML = `
+          <div class="empty-state">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">📰</div>
+            <div>No articles found for the current filter.</div>
+          </div>
+        `;
+        return;
+      }
+
+      elements.container.innerHTML = `
+        <div class="news-grid">
+          ${articles.map((item, index) => `
+            <article class="news-item fade-in" style="animation-delay: ${index * 0.1}s">
+              <div class="news-content">
+                <a href="${item.link}" target="_blank" class="news-title">${item.title}</a>
+                <div class="news-meta">
+                  <span class="source-tag ${getSourceClass(item.source)}">${item.source}</span>
+                  <time>${formatTimeAgo(item.pubDate)}</time>
+                </div>
+                <div class="news-description">${item.cleanDescription}</div>
+              </div>
+            </article>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    function updateStats() {
+      const uniqueSources = new Set(allArticles.map(article => article.source)).size;
+      
+      elements.totalArticles.textContent = allArticles.length;
+      elements.activeSources.textContent = uniqueSources;
+      elements.lastUpdate.textContent = new Date().toLocaleTimeString();
+      
+      elements.stats.style.display = allArticles.length > 0 ? 'grid' : 'none';
+      elements.filterTabs.style.display = allArticles.length > 0 ? 'flex' : 'none';
+    }
+
+    function filterArticles(filterValue) {
+      currentFilter = filterValue;
+      
+      if (filterValue === 'all') {
+        filteredArticles = [...allArticles];
+      } else {
+        filteredArticles = allArticles.filter(article => article.source === filterValue);
+      }
+      
+      renderArticles(filteredArticles);
+      
+      // Update active filter tab
+      document.querySelectorAll('.filter-tab').forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.filter === filterValue);
+      });
+    }
+
+    async function loadFeeds() {
+      if (isLoading) return;
+      
+      isLoading = true;
+      elements.refreshBtn.disabled = true;
+      elements.refreshIcon.innerHTML = '<div class="spinner"></div>';
+
+      try {
+        const results = await Promise.allSettled(feeds.map(fetchFeed));
+        const successfulResults = results
+          .filter(result => result.status === 'fulfilled')
+          .map(result => result.value);
+        
+        allArticles = successfulResults.flat();
+        allArticles.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+        
+        filterArticles(currentFilter);
+        updateStats();
+        
+      } catch (error) {
+        elements.container.innerHTML = `
+          <div class="error-state">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">⚠️</div>
+            <div>Failed to load news feeds. Please try refreshing.</div>
+            <div style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.7;">${error.message}</div>
+          </div>
+        `;
+      } finally {
+        isLoading = false;
+        elements.refreshBtn.disabled = false;
+        elements.refreshIcon.textContent = '🔄';
+      }
+    }
+
+    // Event listeners
+    elements.refreshBtn.addEventListener('click', loadFeeds);
+
+    elements.filterTabs.addEventListener('click', (e) => {
+      if (e.target.classList.contains('filter-tab')) {
+        filterArticles(e.target.dataset.filter);
+      }
+    });
+
+    // Scroll to top functionality
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      elements.scrollToTop.classList.toggle('visible', scrollTop > 500);
+    });
+
+    elements.scrollToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Auto-refresh every 10 minutes
+    setInterval(() => {
+      if (!isLoading) {
+        loadFeeds();
+      }
+    }, 600000);
+
+    // Initial load
+    loadFeeds();
+  </script>
+</body>
+</html>

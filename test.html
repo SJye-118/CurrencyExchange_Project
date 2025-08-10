@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>FinanceHub - Financial Dashboard</title>
+    <meta
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+      name="viewport"
+    />
+    <link
+      rel="icon"
+      href="assets/img/kaiadmin/favicon.ico"
+      type="image/x-icon"
+    />
+
+    <!-- Fonts and icons -->
+    <script src="assets/js/plugin/webfont/webfont.min.js"></script>
+    <script>
+      WebFont.load({
+        google: { families: ["Public Sans:300,400,500,600,700"] },
+        custom: {
+          families: [
+            "Font Awesome 5 Solid",
+            "Font Awesome 5 Regular",
+            "Font Awesome 5 Brands",
+            "simple-line-icons",
+          ],
+          urls: ["assets/css/fonts.min.css"],
+        },
+        active: function () {
+          sessionStorage.fonts = true;
+        },
+      });
+    </script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/plugins.min.css" />
+    <link rel="stylesheet" href="assets/css/kaiadmin.min.css" />
+		<link rel="stylesheet" href="assets/css/extradashboard.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.js"></script>
+
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link rel="stylesheet" href="assets/css/demo.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <!-- Sidebar -->
+      <div class="sidebar" data-background-color="dark">
+        <div class="sidebar-logo">
+          <!-- Logo Header -->
+          <div class="logo-header" data-background-color="dark">
+            <a href="index.html" class="logo">
+              <img
+                src="assets/img/kaiadmin/logo_light.svg"
+                alt="navbar brand"
+                class="navbar-brand"
+                height="20"
+              />
+            </a>
+            <div class="nav-toggle">
+              <button class="btn btn-toggle toggle-sidebar">
+                <i class="gg-menu-right"></i>
+              </button>
+              <button class="btn btn-toggle sidenav-toggler">
+                <i class="gg-menu-left"></i>
+              </button>
+            </div>
+            <button class="topbar-toggler more">
+              <i class="gg-more-vertical-alt"></i>
+            </button>
+          </div>
+          <!-- End Logo Header -->
+        </div>
+        <div class="sidebar-wrapper scrollbar scrollbar-inner">
+          <div class="sidebar-content">
+            <ul class="nav nav-secondary">
+              <li class="nav-item active">
+                <a href="#dashboard" onclick="showPage('dashboard')">
+                  <i class="fas fa-home"></i>
+                  <p>Dashboard</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#exchange" onclick="showPage('exchange')">
+                  <i class="fas fa-exchange-alt"></i>
+                  <p>Currency Exchange</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="news.html" onclick="showPage('news')">
+                  <i class="fas fa-chart-pie"></i>
+                  <p>News</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#markets" onclick="showPage('markets')">
+                  <i class="fas fa-chart-line"></i>
+                  <p>Markets</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#transactions" onclick="showPage('transactions')">
+                  <i class="fas fa-receipt"></i>
+                  <p>Transactions</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#reports" onclick="showPage('reports')">
+                  <i class="fas fa-file-chart-line"></i>
+                  <p>Reports</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#about" onclick="showPage('about')">
+                  <i class="fas fa-info-circle"></i>
+                  <p>About</p>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- End Sidebar -->
+
+      <div class="main-panel">
+        <div class="main-header">
+          <div class="main-header-logo">
+            <!-- Logo Header -->
+            <div class="logo-header" data-background-color="dark">
+              <a href="index.html" class="logo">
+                <img
+                  src="assets/img/kaiadmin/logo_light.svg"
+                  alt="navbar brand"
+                  class="navbar-brand"
+                  height="20"
+                />
+              </a>
+              <div class="nav-toggle">
+                <button class="btn btn-toggle toggle-sidebar">
+                  <i class="gg-menu-right"></i>
+                </button>
+                <button class="btn btn-toggle sidenav-toggler">
+                  <i class="gg-menu-left"></i>
+                </button>
+              </div>
+              <button class="topbar-toggler more">
+                <i class="gg-more-vertical-alt"></i>
+              </button>
+            </div>
+            <!-- End Logo Header -->
+          </div>
+          <!-- Navbar Header -->
+          <nav
+            class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom"
+          >
+            <div class="container-fluid">
+              <nav
+                class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex"
+              >
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <button type="submit" class="btn btn-search pe-1">
+                      <i class="fa fa-search search-icon"></i>
+                    </button>
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="Search ..."
+                    class="form-control"
+                  />
+                </div>
+              </nav>
+
+              <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
+                <li class="nav-item topbar-icon dropdown hidden-caret">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    id="notifDropdown"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    <i class="fa fa-bell"></i>
+                    <span class="notification">3</span>
+                  </a>
+                </li>
+
+                <li class="nav-item topbar-user dropdown hidden-caret">
+                  <a
+                    class="dropdown-toggle profile-pic"
+                    data-bs-toggle="dropdown"
+                    href="#"
+                    aria-expanded="false"
+                  >
+                    <div class="avatar-sm">
+                      <img
+                        src="assets/img/profile.jpg"
+                        alt="..."
+                        class="avatar-img rounded-circle"
+                      />
+                    </div>
+                  </a>
+                  <ul class="dropdown-menu dropdown-user animated fadeIn">
+                    <div class="dropdown-user-scroll scrollbar-outer">
+                      <li>
+                        <div class="user-box">
+                          <div class="avatar-lg">
+                            <img
+                              src="assets/img/profile.jpg"
+                              alt="image profile"
+                              class="avatar-img rounded"
+                            />
+                          </div>
+                          <div class="u-text">
+                            <h4>User</h4>
+                            <p class="text-muted">user@example.com</p>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">My Profile</a>
+                        <a class="dropdown-item" href="#">Account Setting</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Logout</a>
+                      </li>
+                    </div>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </nav>
+          <!-- End Navbar -->
+        </div>
+
+        <!-- Dashboard Page -->
+        <div id="dashboard-page" class="page-content">
+          <div class="container">
+            <div class="page-inner">
+              <div
+                class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4"
+              >
+                <div>
+                  <h3 class="fw-bold mb-3">Financial Dashboard</h3>
+                  <h6 class="op-7 mb-2">Track your finances and exchange rates</h6>
+                </div>
+                <div class="ms-md-auto py-2 py-md-0">
+                  <a href="#" class="btn btn-label-info btn-round me-2">Reports</a>
+                  <a href="#" class="btn btn-primary btn-round">New Transaction</a>
+                </div>
+              </div>
+              
+              <!-- Stats Cards -->
+              <div class="row">
+                <div class="col-sm-6 col-md-3">
+                  <div class="card card-stats card-round">
+                    <div class="card-body">
+                      <div class="row align-items-center">
+                        <div class="col-icon">
+                          <div class="icon-big text-center icon-primary bubble-shadow-small">
+                            <i class="fas fa-dollar-sign"></i>
+                          </div>
+                        </div>
+                        <div class="col col-stats ms-3 ms-sm-0">
+                          <div class="numbers">
+                            <p class="card-category">Total Balance</p>
+                            <h4 class="card-title">$12,450.50</h4>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                  <div class="card card-stats card-round">
+                    <div class="card-body">
+                      <div class="row align-items-center">
+                        <div class="col-icon">
+                          <div class="icon-big text-center icon-info bubble-shadow-small">
+                            <i class="fas fa-chart-line"></i>
+                          </div>
+                        </div>
+                        <div class="col col-stats ms-3 ms-sm-0">
+                          <div class="numbers">
+                            <p class="card-category">Monthly Profit</p>
+                            <h4 class="card-title">+8.5%</h4>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                  <div class="card card-stats card-round">
+                    <div class="card-body">
+                      <div class="row align-items-center">
+                        <div class="col-icon">
+                          <div class="icon-big text-center icon-success bubble-shadow-small">
+                            <i class="fas fa-exchange-alt"></i>
+                          </div>
+                        </div>
+                        <div class="col col-stats ms-3 ms-sm-0">
+                          <div class="numbers">
+                            <p class="card-category">Exchanges</p>
+                            <h4 class="card-title">24</h4>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                  <div class="card card-stats card-round">
+                    <div class="card-body">
+                      <div class="row align-items-center">
+                        <div class="col-icon">
+                          <div class="icon-big text-center icon-secondary bubble-shadow-small">
+                            <i class="fas fa-wallet"></i>
+                          </div>
+                        </div>
+                        <div class="col col-stats ms-3 ms-sm-0">
+                          <div class="numbers">
+                            <p class="card-category">Transactions</p>
+                            <h4 class="card-title">156</h4>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card card-round">
+                    <div class="card-header">
+                      <div class="card-head-row card-tools-still-right">
+                        <div class="card-title">Recent Transactions</div>
+                      </div>
+                    </div>
+                    <div class="card-body p-0">
+                      <div class="table-responsive">
+                        <table class="table align-items-center mb-0">
+                          <thead class="thead-light">
+                            <tr>
+                              <th scope="col">Transaction</th>
+                              <th scope="col" class="text-end">Date</th>
+                              <th scope="col" class="text-end">Amount</th>
+                              <th scope="col" class="text-end">Status</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <th scope="row">
+                                <button class="btn btn-icon btn-round btn-success btn-sm me-2">
+                                  <i class="fa fa-check"></i>
+                                </button>
+                                Currency Exchange - USD to EUR
+                              </th>
+                              <td class="text-end">Aug 08, 2025, 10:30am</td>
+                              <td class="text-end">$1,250.00</td>
+                              <td class="text-end">
+                                <span class="badge badge-success">Completed</span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <th scope="row">
+                                <button class="btn btn-icon btn-round btn-info btn-sm me-2">
+                                  <i class="fa fa-credit-card"></i>
+                                </button>
+                                Payment Received #10245
+                              </th>
+                              <td class="text-end">Aug 07, 2025, 4:15pm</td>
+                              <td class="text-end">$890.00</td>
+                              <td class="text-end">
+                                <span class="badge badge-success">Completed</span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <th scope="row">
+                                <button class="btn btn-icon btn-round btn-warning btn-sm me-2">
+                                  <i class="fa fa-clock"></i>
+                                </button>
+                                Transfer to Savings
+                              </th>
+                              <td class="text-end">Aug 07, 2025, 2:00pm</td>
+                              <td class="text-end">$500.00</td>
+                              <td class="text-end">
+                                <span class="badge badge-warning">Pending</span>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+							<h1>Economic Dashboard – Real-Time KPI Cards</h1>
+							<div class="kpi-container">
+								<div class="kpi-card">
+										<div class="kpi-title">USD to MYR</div>
+										<div class="kpi-value" id="usd-myr">Loading...</div>
+										<div class="kpi-update" id="usd-myr">--</div>
+								</div>
+								<div class="kpi-card">
+										<div class="kpi-title">EUR to MYR</div>
+										<div class="kpi-value" id="eur-myr">Loading...</div>
+										<div class="kpi-update" id="eur-myr">--</div>
+								</div>
+								<div class="kpi-card">
+										<div class="kpi-title">GDP Growth</div>
+										<div class="kpi-value" id="inflation">Loading...</div>
+										<div class="kpi-update" id="inflation">--</div>
+								</div>
+								<div class="kpi-card">
+										<div class="kpi-title">Inflation Rate</div>
+										<div class="kpi-value" id="gdp">Loading...</div>
+										<div class="kpi-update" id="gdp">--</div>
+								</div>
+							</div>
+							<hr>
+								<div class="chart-container">
+										<h2>Historical USD to MYR (Line Chart)</h2>
+										<canvas id="lineChart"></canvas>
+								</div>
+								<div class="chart-container">
+										<h2>Commodity Prices (Bar Chart)</h2>
+										<canvas id="barChart"></canvas>
+								</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Currency Exchange Page -->
+        <div id="exchange-page" class="page-content" style="display: none;">
+          <div class="container">
+            <div class="page-inner">
+              <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
+                <div>
+                  <h3 class="fw-bold mb-3">💱 Currency Exchange</h3>
+                  <h6 class="op-7 mb-2">Real-time exchange rates powered by Frankfurter API</h6>
+                </div>
+              </div>
+
+              <!-- Currency Converter -->
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="card card-round">
+                    <div class="card-header">
+                      <div class="card-title">Currency Converter</div>
+                    </div>
+                    <div class="card-body">
+                      <div class="converter-section">
+                        <div class="currency-input mb-3">
+                          <label for="fromAmount" class="form-label">From</label>
+                          <div class="input-group">
+                            <input type="number" class="form-control" id="fromAmount" value="1" step="0.01" min="0">
+                            <select class="form-select" id="fromCurrency">
+                              <option value="USD">USD</option>
+                              <option value="EUR">EUR</option>
+                              <option value="GBP">GBP</option>
+                              <option value="JPY">JPY</option>
+                              <option value="AUD">AUD</option>
+                              <option value="CAD">CAD</option>
+                              <option value="CHF">CHF</option>
+                              <option value="CNY">CNY</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="text-center mb-3">
+                          <button class="btn btn-outline-primary btn-sm" id="swapBtn" title="Swap currencies">⇄ Swap</button>
+                        </div>
+
+                        <div class="currency-input mb-3">
+                          <label for="toAmount" class="form-label">To</label>
+                          <div class="input-group">
+                            <input type="number" class="form-control" id="toAmount" readonly>
+                            <select class="form-select" id="toCurrency">
+                              <option value="EUR">EUR</option>
+                              <option value="USD">USD</option>
+                              <option value="GBP">GBP</option>
+                              <option value="JPY">JPY</option>
+                              <option value="AUD">AUD</option>
+                              <option value="CAD">CAD</option>
+                              <option value="CHF">CHF</option>
+                              <option value="CNY">CNY</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <button class="btn btn-primary w-100" id="convertBtn">Convert Currency</button>
+                        <div id="result" style="display: none;" class="mt-3 p-3 bg-light rounded"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="card card-round">
+                    <div class="card-header">
+                      <div class="card-title">Current Exchange Rates (Base: EUR)</div>
+                    </div>
+                    <div class="card-body">
+                      <div id="ratesContainer">
+                        <div class="text-center">Loading exchange rates...</div>
+                      </div>
+                      <div id="lastUpdated" class="small text-muted mt-3"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Historical Chart -->
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card card-round">
+                    <div class="card-header">
+                      <div class="card-title">📈 Historical Exchange Rates</div>
+                    </div>
+                    <div class="card-body">
+                      <div class="chart-controls mb-4">
+                        <div class="row">
+                          <div class="col-md-3">
+                            <label class="form-label">Base Currency</label>
+                            <select class="form-select" id="chartBaseCurrency">
+                            <option value="EUR">EUR</option>
+                            <option value="USD">USD</option>
+                            <option value="GBP">GBP</option>
+                            <option value="JPY">JPY</option>
+                            <option value="AUD">AUD</option>
+                            <option value="CAD">CAD</option>
+                            <option value="CHF">CHF</option>
+                            <option value="CNY">CNY</option>
+                            <option value="SEK">SEK</option>
+                            <option value="NZD">NZD</option>
+                            </select>
+                          </div>
+                          <div class="col-md-3">
+                            <label class="form-label">Target Currency</label>
+                            <select class="form-select" id="chartTargetCurrency">
+                            <option value="EUR">EUR</option>
+                            <option value="USD">USD</option>
+                            <option value="GBP">GBP</option>
+                            <option value="JPY">JPY</option>
+                            <option value="AUD">AUD</option>
+                            <option value="CAD">CAD</option>
+                            <option value="CHF">CHF</option>
+                            <option value="CNY">CNY</option>
+                            <option value="SEK">SEK</option>
+                            <option value="NZD">NZD</option>
+                            </select>
+                          </div>
+                          <div class="col-md-3">
+                            <label class="form-label">Time Period</label>
+                            <div class="btn-group w-100" role="group">
+                              <button type="button" class="btn btn-outline-primary active period-btn" data-period="7">7D</button>
+                              <button type="button" class="btn btn-outline-primary period-btn" data-period="30">1M</button>
+                              <button type="button" class="btn btn-outline-primary period-btn" data-period="90">3M</button>
+                              <button type="button" class="btn btn-outline-primary period-btn" data-period="180">6M</button>
+                              <button type="button" class="btn btn-outline-primary period-btn" data-period="365">1Y</button>
+                              <button type="button" class="btn btn-outline-primary period-btn" data-period="730">2Y</button>
+                              <button type="button" class="btn btn-outline-primary period-btn" data-period="1095">3Y</button>
+                              <button type="button" class="btn btn-outline-primary period-btn" data-period="1825">5Y</button>
+                              <button type="button" class="btn btn-outline-primary period-btn" data-period="3650">10Y</button>
+                              <button type="button" class="btn btn-outline-primary period-btn" data-period="9490">ALL</button>
+                            </div>
+                          </div>
+                        <div class="col-md-4">
+                            <label>Chart Type</label>
+                            <div class="btn-group w-100" role="group">
+                              <button type="button" class="btn btn-outline-primary chart-type-btn active"  data-type="line">📈 Line</button>
+                              <button type="button" class="btn btn-outline-primary chart-type-btn "  data-type="bar">📊 Bar</button>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                      </div>
+                      <div id="chartContainer" style="height: 600px;width: 1200px;">
+                        <canvas id="exchangeChart"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <script src="js.js"></script>
+
+        <!-- Markets Page -->
+        <div id="markets-page" class="page-content" style="display: none;">
+          <div class="container">
+            <div class="page-inner">
+              <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
+                <div>
+                  <h3 class="fw-bold mb-3">Market Overview</h3>
+                  <h6 class="op-7 mb-2">Stay updated with global financial markets</h6>
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card card-round">
+                    <div class="card-body">
+                      <h4 class="card-title text-center mb-4">Global Markets</h4>
+                      <div class="text-center">
+                        <p>Market data and analysis will be displayed here.</p>
+                        <p class="text-muted">View stock prices, market trends, and financial news.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Transactions Page -->
+        <div id="transactions-page" class="page-content" style="display: none;">
+          <div class="container">
+            <div class="page-inner">
+              <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
+                <div>
+                  <h3 class="fw-bold mb-3">Transaction History</h3>
+                  <h6 class="op-7 mb-2">View and manage all your transactions</h6>
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card card-round">
+                    <div class="card-body">
+                      <h4 class="card-title text-center mb-4">All Transactions</h4>
+                      <div class="text-center">
+                        <p>Complete transaction history will be displayed here.</p>
+                        <p class="text-muted">Filter, search, and export your transaction data.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reports Page -->
+        <div id="reports-page" class="page-content" style="display: none;">
+          <div class="container">
+            <div class="page-inner">
+              <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
+                <div>
+                  <h3 class="fw-bold mb-3">Financial Reports</h3>
+                  <h6 class="op-7 mb-2">Generate comprehensive financial reports</h6>
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card card-round">
+                    <div class="card-body">
+                      <h4 class="card-title text-center mb-4">Reports & Analytics</h4>
+                      <div class="text-center">
+                        <p>Financial reports and analytics will be displayed here.</p>
+                        <p class="text-muted">Generate monthly reports, profit/loss statements, and tax documents.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- About Page -->
+        <div id="about-page" class="page-content" style="display: none;">
+          <div class="container">
+            <div class="page-inner">
+              <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
+                <div>
+                  <h3 class="fw-bold mb-3">About FinanceHub</h3>
+                  <h6 class="op-7 mb-2">Your comprehensive financial management platform</h6>
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="card card-round">
+                    <div class="card-body">
+                      <h4 class="card-title mb-4">About Our Platform</h4>
+                      <p>FinanceHub is a comprehensive financial management platform designed to help you take control of your finances. Our platform offers real-time currency exchange, portfolio tracking, market analysis, and detailed financial reporting.</p>
+                      
+                      <h5 class="mt-4">Key Features:</h5>
+                      <ul>
+                        <li><strong>Real-time Currency Exchange:</strong> Get up-to-date exchange rates and convert currencies instantly</li>
+                        <li><strong>Portfolio Management:</strong> Track your investments and analyze performance</li>
+                        <li><strong>Market Data:</strong> Stay informed with global financial market updates</li>
+                        <li><strong>Transaction History:</strong> Monitor all your financial transactions in one place</li>
+                        <li><strong>Financial Reports:</strong> Generate comprehensive reports for better financial planning</li>
+                      </ul>
+                      
+                      <h5 class="mt-4">Data Sources:</h5>
+                      <p>Our currency exchange rates are powered by the Frankfurter API, which provides reliable and up-to-date financial data from the European Central Bank.</p>
+                      
+                      <h5 class="mt-4">Security & Privacy:</h5>
+                      <p>We take your financial data security seriously. All transactions are encrypted and we follow industry best practices to protect your information.</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="col-md-4">
+                  <div class="card card-round">
+                    <div class="card-body">
+                      <h5 class="card-title">Contact Information</h5>
+                      <div class="mt-3">
+                        <p><i class="fas fa-envelope me-2"></i> support@financehub.com</p>
+                        <p><i class="fas fa-phone me-2"></i> +1 (555) 123-4567</p>
+                        <p><i class="fas fa-map-marker-alt me-2"></i> 123 Finance St, New York, NY 10001</p>
+                      </div>
+                      
+                      <h6 class="mt-4">Business Hours:</h6>
+                      <p class="small text-muted">Monday - Friday: 9:00 AM - 6:00 PM EST<br>
+                      Saturday: 10:00 AM - 4:00 PM EST<br>
+                      Sunday: Closed</p>
+                    </div>
+                  </div>
+                  
+                  <div class="card card-round mt-3">
+                    <div class="card-body">
+                      <h5 class="card-title">Version Information</h5>
+                      <p class="small text-muted">
+                        Version: 2.1.0<br>
+                        Last Updated: August 2025<br>
+                        Build: 20250808
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!--   Core JS Files   -->
+    <script src="assets/js/core/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/core/popper.min.js"></script>
+    <script src="assets/js/core/bootstrap.min.js"></script>
+
+    <!-- jQuery Scrollbar -->
+    <script src="assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+
+    <!-- Chart JS -->
+    <script src="assets/js/plugin/chart.js/chart.min.js"></script>
+
+    <!-- jQuery Sparkline -->
+    <script src="assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+
+    <!-- Chart Circle -->
+    <script src="assets/js/plugin/chart-circle/circles.min.js"></script>
+
+    <!-- Datatables -->
+    <script src="assets/js/plugin/datatables/datatables.min.js"></script>
+
+    <!-- Bootstrap Notify -->
+    <script src="assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+
+    <!-- jQuery Vector Maps -->
+    <script src="assets/js/plugin/jsvectormap/jsvectormap.min.js"></script>
+    <script src="assets/js/plugin/jsvectormap/world.js"></script>
+
+    <!-- Sweet Alert -->
+    <script src="assets/js/plugin/sweetalert/sweetalert.min.js"></script>
+
+    <!-- Kaiadmin JS -->
+    <script src="assets/js/kaiadmin.min.js"></script>
+		
+		<script src="assets/js/extradashboard.js"></script>
+
+    <script>
+      // Page Navigation
+      function showPage(pageId) {
+        // Hide all pages
+        const pages = document.querySelectorAll('.page-content');
+        pages.forEach(page => {
+          page.style.display = 'none';
+        });
+        
+        // Show selected page
+        document.getElementById(pageId + '-page').style.display = 'block';
+        
+        // Update active nav item
+        const navItems = document.querySelectorAll('.nav-item');
+        navItems.forEach(item => {
+          item.classList.remove('active');
+        });
+        
+        // Find and activate the clicked nav item
+        const activeNav = document.querySelector(`a[href="#${pageId}"]`).parentNode;
+        activeNav.classList.add('active');
+        
+        // If showing exchange page, initialize exchange functionality
+        if (pageId === 'exchange') {
+          initializeExchange();
+        }
+      }
+
+      // Currency Exchange Functionality
+      let exchangeChart = null;
+      
+      function initializeExchange() {
+        loadExchangeRates();
+        setupExchangeEventListeners();
+      }
+
+      function setupExchangeEventListeners() {
+        // Convert button
+        document.getElementById('convertBtn').addEventListener('click', convertCurrency);
+        
+        // Swap button
+        document.getElementById('swapBtn').addEventListener('click', swapCurrencies);
+        
+        // Auto-convert on input change
+        document.getElementById('fromAmount').addEventListener('input', convertCurrency);
+        document.getElementById('fromCurrency').addEventListener('change', convertCurrency);
+        document.getElementById('toCurrency').addEventListener('change', convertCurrency);
+        
+        // Chart controls
+        document.getElementById('updateChartBtn').addEventListener('click', updateHistoricalChart);
+        
+        // Period buttons
+        document.querySelectorAll('.period-btn').forEach(btn => {
+          btn.addEventListener('click', function() {
+            document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+          });
+        });
+      }
+
+      async function convertCurrency() {
+        const amount = document.getElementById('fromAmount').value;
+        const from = document.getElementById('fromCurrency').value;
+        const to = document.getElementById('toCurrency').value;
+        
+        if (!amount || amount <= 0) return;
+        
+        try {
+          const response = await fetch(`https://api.frankfurter.app/latest?from=${from}&to=${to}`);
+          const data = await response.json();
+          
+          const rate = data.rates[to];
+          const convertedAmount = (amount * rate).toFixed(4);
+          
+          document.getElementById('toAmount').value = convertedAmount;
+          
+          const resultDiv = document.getElementById('result');
+          resultDiv.innerHTML = `
+            <div class="alert alert-success">
+              <strong>${amount} ${from}</strong> = <strong>${convertedAmount} ${to}</strong><br>
+              <small>Exchange rate: 1 ${from} = ${rate} ${to}</small>
+            </div>
+          `;
+          resultDiv.style.display = 'block';
+          
+        } catch (error) {
+          console.error('Error converting currency:', error);
+          const resultDiv = document.getElementById('result');
+          resultDiv.innerHTML = '<div class="alert alert-danger">Error converting currency. Please try again.</div>';
+          resultDiv.style.display = 'block';
+        }
+      }
+
+      function swapCurrencies() {
+        const fromCurrency = document.getElementById('fromCurrency');
+        const toCurrency = document.getElementById('toCurrency');
+        
+        const temp = fromCurrency.value;
+        fromCurrency.value = toCurrency.value;
+        toCurrency.value = temp;
+        
+        convertCurrency();
+      }
+
+      async function loadExchangeRates() {
+        const container = document.getElementById('ratesContainer');
+        
+        try {
+          const response = await fetch('https://api.frankfurter.app/latest?from=EUR');
+          const data = await response.json();
+          
+          let ratesHTML = '<div class="row">';
+          
+          Object.entries(data.rates).slice(0, 8).forEach(([currency, rate]) => {
+            ratesHTML += `
+              <div class="col-md-3 col-sm-6 mb-3">
+                <div class="card">
+                  <div class="card-body text-center">
+                    <h6 class="card-title">${currency}</h6>
+                    <h4 class="text-primary">${rate.toFixed(4)}</h4>
+                  </div>
+                </div>
+              </div>
+            `;
+          });
+          
+          ratesHTML += '</div>';
+          container.innerHTML = ratesHTML;
+          
+          document.getElementById('lastUpdated').textContent = 
+            `Last updated: ${new Date(data.date).toLocaleDateString()}`;
+            
+        } catch (error) {
+          console.error('Error loading exchange rates:', error);
+          container.innerHTML = '<div class="alert alert-danger">Error loading exchange rates</div>';
+        }
+      }
+
+      async function updateHistoricalChart() {
+        const baseCurrency = document.getElementById('chartBaseCurrency').value;
+        const targetCurrency = document.getElementById('chartTargetCurrency').value;
+        const period = document.querySelector('.period-btn.active').dataset.period;
+        
+        const endDate = new Date();
+        const startDate = new Date();
+        startDate.setDate(endDate.getDate() - parseInt(period));
+        
+        const startDateStr = startDate.toISOString().split('T')[0];
+        const endDateStr = endDate.toISOString().split('T')[0];
+        
+        try {
+          const response = await fetch(
+            `https://api.frankfurter.app/${startDateStr}..${endDateStr}?from=${baseCurrency}&to=${targetCurrency}`
+          );
+          const data = await response.json();
+          
+          const dates = Object.keys(data.rates);
+          const rates = dates.map(date => data.rates[date][targetCurrency]);
+          
+          const ctx = document.getElementById('exchangeChart').getContext('2d');
+          
+          if (exchangeChart) {
+            exchangeChart.destroy();
+          }
+          
+          exchangeChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: dates.map(date => new Date(date).toLocaleDateString()),
+              datasets: [{
+                label: `${baseCurrency} to ${targetCurrency}`,
+                data: rates,
+                borderColor: 'rgb(75, 192, 192)',
+                backgroundColor: 'rgba(75, 192, 192, 0.1)',
+                tension: 0.1,
+                fill: true
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                title: {
+                  display: true,
+                  text: `${baseCurrency} to ${targetCurrency} Exchange Rate`
+                }
+              },
+              scales: {
+                y: {
+                  beginAtZero: false,
+                  title: {
+                    display: true,
+                    text: 'Exchange Rate'
+                  }
+                },
+                x: {
+                  title: {
+                    display: true,
+                    text: 'Date'
+                  }
+                }
+              }
+            }
+          });
+          
+        } catch (error) {
+          console.error('Error loading historical data:', error);
+        }
+      }
+
+      // Initialize dashboard on load
+      document.addEventListener('DOMContentLoaded', function() {
+        // Show dashboard by default
+        showPage('dashboard');
+      });
+
+      // Dashboard sparkline charts
+      $(document).ready(function() {
+        $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
+          type: "line",
+          height: "70",
+          width: "100%",
+          lineWidth: "2",
+          lineColor: "#177dff",
+          fillColor: "rgba(23, 125, 255, 0.14)",
+        });
+
+        $("#lineChart2").sparkline([99, 125, 122, 105, 110, 124, 115], {
+          type: "line",
+          height: "70",
+          width: "100%",
+          lineWidth: "2",
+          lineColor: "#f3545d",
+          fillColor: "rgba(243, 84, 93, .14)",
+        });
+
+        $("#lineChart3").sparkline([105, 103, 123, 100, 95, 105, 115], {
+          type: "line",
+          height: "70",
+          width: "100%",
+          lineWidth: "2",
+          lineColor: "#ffa534",
+          fillColor: "rgba(255, 165, 52, .14)",
+        });
+      });
+    </script>
+  </body>
+</html>

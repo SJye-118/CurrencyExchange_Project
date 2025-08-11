@@ -13,7 +13,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-color: #F5F7FD;
             height: 100vh;
             display: flex;
             justify-content: center;
@@ -44,7 +44,7 @@
         }
 
         .chat-header {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background-color: rgb(38, 107, 255);
             color: white;
             padding: 20px;
             text-align: center;
@@ -115,7 +115,7 @@
         }
 
         .message.user .message-bubble {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background-color: rgb(54, 230, 19);
             color: white;
             margin-left: 20%;
         }
@@ -151,7 +151,7 @@
         }
 
         .send-button {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background-color: rgb(38, 107, 255);
             color: white;
             border: none;
             width: 45px;
@@ -299,6 +299,25 @@
                     // Weather (mock responses)
                     'weather': ['I don\'t have real-time weather data, but I recommend checking a weather app or website for accurate information!', 'For current weather, please check your local weather service or app!'],
                     'temperature': ['I can\'t check the temperature right now, but your weather app will have the most accurate info!'],
+                    
+                    'tell me about yourself': ['I\'m an AI chatbot created to assist you with various tasks and answer your questions!', 'I\'m here to help you find information and have interesting conversations!'],
+                    // Currency exchange
+                    'currency exchange': ['I can help you with currency exchange rates! Just tell me the currencies you want to convert.', 'Need to exchange currency? Just let me know the currencies and amounts!'],
+                    'exchange rates': ['I can help you with currency exchange rates! Just tell me the currencies you want to convert.', 'Need to exchange currency? Just let me know the currencies and amounts!'],
+                    'malaysian ringgit': ['The Malaysian Ringgit (MYR) is the official currency of Malaysia. It is subdivided into 100 sen.', 'The currency code for Malaysian Ringgit is MYR.'],
+                    'french': ['The French Franc (FRF) was the currency of France before the Euro. It was replaced by the Euro in 2002.', 'The currency code for French Franc is FRF.'],
+                    'USA': ['The United States Dollar (USD) is the official currency of the United States. It is subdivided into 100 cents.', 'The currency code for US Dollar is USD.'],
+                    'japanese yen': ['The Japanese Yen (JPY) is the official currency of Japan. It is subdivided into 100 sen.', 'The currency code for Japanese Yen is JPY.'],
+                    'chinese yuan': ['The Chinese Yuan (CNY) is the official currency of China. It is subdivided into 10 jiao or 100 fen.', 'The currency code for Chinese Yuan is CNY.'],
+                    'euro': ['The Euro (EUR) is the official currency of the Eurozone, used by 19 of the 27 European Union member states.', 'The currency code for Euro is EUR.'],
+                    'currency': ['I can help you with currency exchange rates! Just tell me the currencies you want to convert.', 'Need to exchange currency? Just let me know the currencies and amounts!'],
+                    'korean won': ['The South Korean Won (KRW) is the official currency of South Korea. It is subdivided into 100 jeon.', 'The currency code for South Korean Won is KRW.'],
+                    'indian rupee': ['The Indian Rupee (INR) is the official currency of India. It is subdivided into 100 paise.', 'The currency code for Indian Rupee is INR.'],
+                    'indonesian rupiah': ['The Indonesian Rupiah (IDR) is the official currency of Indonesia. It is subdivided into 100 sen.', 'The currency code for Indonesian Rupiah is IDR.'],
+                    'british pound': ['The British Pound (GBP) is the official currency of the United Kingdom. It is subdivided into 100 pence.', 'The currency code for British Pound is GBP.'],
+                    'canadian dollar': ['The Canadian Dollar (CAD) is the official currency of Canada. It is subdivided into 100 cents.', 'The currency code for Canadian Dollar is CAD.'],
+                    'swiss franc': ['The Swiss Franc (CHF) is the official currency of Switzerland. It is subdivided into 100 centimes.', 'The currency code for Swiss Franc is CHF.'],
+                    'australian dollar': ['The Australian Dollar (AUD) is the official currency of Australia. It is subdivided into 100 cents.', 'The currency code for Australian Dollar is AUD.'],
                     
                     // Time
                     'time': [`The current time is ${new Date().toLocaleTimeString()}`],

@@ -279,13 +279,29 @@
                 this.sendButton = document.getElementById('sendButton');
                 this.typingIndicator = document.getElementById('typingIndicator');
                 
+
+                 this.exchangeRates = {
+                    'myr_jpy': 34.25,    // 1 MYR = ~34.25 JPY
+                    'myr_usd': 0.22,     // 1 MYR = ~0.22 USD
+                    'myr_sgd': 0.30,     // 1 MYR = ~0.30 SGD
+                    'myr_eur': 0.20,     // 1 MYR = ~0.20 EUR
+                    'myr_gbp': 0.17,     // 1 MYR = ~0.17 GBP
+                    'myr_cny': 1.58,     // 1 MYR = ~1.58 CNY
+                    'myr_thb': 7.85,     // 1 MYR = ~7.85 THB
+                    'myr_krw': 295.50,   // 1 MYR = ~295.50 KRW
+                    'usd_myr': 4.50,     // 1 USD = ~4.50 MYR
+                    'sgd_myr': 3.35,     // 1 SGD = ~3.35 MYR
+                };
+
                 this.responses = {
                     // Greetings
                     'hello': ['Hello! How can I help you today?', 'Hi there! What can I do for you?', 'Hey! Great to see you!'],
                     'hi': ['Hi! How are you doing?', 'Hello! What\'s on your mind?', 'Hey there!'],
                     'hey': ['Hey! How can I assist you?', 'Hi! What would you like to know?', 'Hello!'],
                     'good morning': ['Good morning! Hope you\'re having a great day!', 'Morning! How can I help you today?'],
+                    'good afternoon': ['Good afternoon! How\'s your day going?', 'Afternoon! What can I help you with?'],
                     'good evening': ['Good evening! How can I assist you tonight?', 'Evening! What can I do for you?'],
+                    'good night': ['Good night! Sleep well!', 'Sweet dreams! See you tomorrow!'],
                     
                     // Basic questions
                     'how are you': ['I\'m doing great! Thanks for asking. How are you?', 'I\'m fantastic! How can I help you today?', 'All good here! What about you?'],
@@ -304,6 +320,23 @@
                     // Currency exchange
                     'currency exchange': ['I can help you with currency exchange rates! Just tell me the currencies you want to convert.', 'Need to exchange currency? Just let me know the currencies and amounts!'],
                     'exchange rates': ['I can help you with currency exchange rates! Just tell me the currencies you want to convert.', 'Need to exchange currency? Just let me know the currencies and amounts!'],
+                    
+                    // Currency Exchange
+                    'myr to yen': [`1 MYR = ${this.exchangeRates.myr_jpy} Japanese Yen (approximate)`],
+                    'myr to jpy': [`1 Malaysian Ringgit = ${this.exchangeRates.myr_jpy} Japanese Yen`],
+                    'ringgit to yen': [`1 MYR = ${this.exchangeRates.myr_jpy} JPY (rates fluctuate daily)`],
+                    'myr to usd': [`1 MYR = ${this.exchangeRates.myr_usd} USD (approximate)`],
+                    'myr to sgd': [`1 MYR = S${this.exchangeRates.myr_sgd} Singapore Dollar`],
+                    'myr to euro': [`1 MYR = €${this.exchangeRates.myr_eur} Euro`],
+                    'myr to pound': [`1 MYR = £${this.exchangeRates.myr_gbp} British Pound`],
+                    'myr to yuan': [`1 MYR = ¥${this.exchangeRates.myr_cny} Chinese Yuan`],
+                    'myr to baht': [`1 MYR = ${this.exchangeRates.myr_thb} Thai Baht`],
+                    'myr to won': [`1 MYR = ₩${this.exchangeRates.myr_krw} Korean Won`],
+                    'usd to myr': [`1 USD = RM${this.exchangeRates.usd_myr} Malaysian Ringgit`],
+                    'sgd to myr': [`1 SGD = RM${this.exchangeRates.sgd_myr} Malaysian Ringgit`],
+                    'exchange rate': ['I can help with currency conversion! Try asking "MYR to JPY" or "USD to MYR"', 'Which currencies would you like to convert? I support MYR, USD, JPY, SGD, EUR, GBP, CNY, THB, KRW'],
+                    'exchange': ['I can help you with currency exchange rates! Just tell me the currencies you want to convert.', 'Need to exchange currency? Just let me know the currencies and amounts!'],
+                    'rate': ['I can help you with currency exchange rates! Just tell me the currencies you want to convert.', 'Need to exchange currency? Just let me know the currencies and amounts!'],
                     'malaysian ringgit': ['The Malaysian Ringgit (MYR) is the official currency of Malaysia. It is subdivided into 100 sen.', 'The currency code for Malaysian Ringgit is MYR.'],
                     'french': ['The French Franc (FRF) was the currency of France before the Euro. It was replaced by the Euro in 2002.', 'The currency code for French Franc is FRF.'],
                     'USA': ['The United States Dollar (USD) is the official currency of the United States. It is subdivided into 100 cents.', 'The currency code for US Dollar is USD.'],
@@ -318,6 +351,7 @@
                     'canadian dollar': ['The Canadian Dollar (CAD) is the official currency of Canada. It is subdivided into 100 cents.', 'The currency code for Canadian Dollar is CAD.'],
                     'swiss franc': ['The Swiss Franc (CHF) is the official currency of Switzerland. It is subdivided into 100 centimes.', 'The currency code for Swiss Franc is CHF.'],
                     'australian dollar': ['The Australian Dollar (AUD) is the official currency of Australia. It is subdivided into 100 cents.', 'The currency code for Australian Dollar is AUD.'],
+                    
                     
                     // Time
                     'time': [`The current time is ${new Date().toLocaleTimeString()}`],

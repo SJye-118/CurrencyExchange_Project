@@ -40,8 +40,7 @@
 		<link rel="stylesheet" href="assets/css/extradashboard.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.js"></script>
 
-    <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link rel="stylesheet" href="assets/css/demo.css" />
+
   </head>
   <body>
     <div class="wrapper">
@@ -100,24 +99,6 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#markets" onclick="showPage('markets')">
-                  <i class="fas fa-chart-line"></i>
-                  <p>Markets</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#transactions" onclick="showPage('transactions')">
-                  <i class="fas fa-receipt"></i>
-                  <p>Transactions</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#reports" onclick="showPage('reports')">
-                  <i class="fas fa-file-chart-line"></i>
-                  <p>Reports</p>
-                </a>
-              </li>
-              <li class="nav-item">
                 <a href="#about" onclick="showPage('about')">
                   <i class="fas fa-info-circle"></i>
                   <p>About</p>
@@ -130,313 +111,69 @@
       <!-- End Sidebar -->
 
       <div class="main-panel">
-        <div class="main-header">
-          <div class="main-header-logo">
-            <!-- Logo Header -->
-            <div class="logo-header" data-background-color="dark">
-              <a href="index.html" class="logo">
-                <img
-                  src="assets/img/kaiadmin/logo_light.svg"
-                  alt="navbar brand"
-                  class="navbar-brand"
-                  height="20"
-                />
-              </a>
-              <div class="nav-toggle">
-                <button class="btn btn-toggle toggle-sidebar">
-                  <i class="gg-menu-right"></i>
-                </button>
-                <button class="btn btn-toggle sidenav-toggler">
-                  <i class="gg-menu-left"></i>
-                </button>
-              </div>
-              <button class="topbar-toggler more">
-                <i class="gg-more-vertical-alt"></i>
-              </button>
-            </div>
-            <!-- End Logo Header -->
-          </div>
-          <!-- Navbar Header -->
-          <nav
-            class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom"
-          >
-            <div class="container-fluid">
-              <nav
-                class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex"
-              >
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <button type="submit" class="btn btn-search pe-1">
-                      <i class="fa fa-search search-icon"></i>
-                    </button>
-                  </div>
-                  <input
-                    type="text"
-                    placeholder="Search ..."
-                    class="form-control"
-                  />
-                </div>
-              </nav>
-
-              <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
-                <li class="nav-item topbar-icon dropdown hidden-caret">
-                  <a
-                    class="nav-link dropdown-toggle"
-                    href="#"
-                    id="notifDropdown"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    <i class="fa fa-bell"></i>
-                    <span class="notification">3</span>
-                  </a>
-                </li>
-
-                <li class="nav-item topbar-user dropdown hidden-caret">
-                  <a
-                    class="dropdown-toggle profile-pic"
-                    data-bs-toggle="dropdown"
-                    href="#"
-                    aria-expanded="false"
-                  >
-                    <div class="avatar-sm">
-                      <img
-                        src="assets/img/profile.jpg"
-                        alt="..."
-                        class="avatar-img rounded-circle"
-                      />
-                    </div>
-                  </a>
-                  <ul class="dropdown-menu dropdown-user animated fadeIn">
-                    <div class="dropdown-user-scroll scrollbar-outer">
-                      <li>
-                        <div class="user-box">
-                          <div class="avatar-lg">
-                            <img
-                              src="assets/img/profile.jpg"
-                              alt="image profile"
-                              class="avatar-img rounded"
-                            />
-                          </div>
-                          <div class="u-text">
-                            <h4>User</h4>
-                            <p class="text-muted">user@example.com</p>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">My Profile</a>
-                        <a class="dropdown-item" href="#">Account Setting</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Logout</a>
-                      </li>
-                    </div>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-          </nav>
-          <!-- End Navbar -->
-        </div>
-
         <!-- Dashboard Page -->
         <div id="dashboard-page" class="page-content">
           <div class="container">
             <div class="page-inner">
-              <div
-                class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4"
-              >
-                <div>
-                  <h3 class="fw-bold mb-3">Financial Dashboard</h3>
-                  <h6 class="op-7 mb-2">Track your finances and exchange rates</h6>
-                </div>
-                <div class="ms-md-auto py-2 py-md-0">
-                  <a href="#" class="btn btn-label-info btn-round me-2">Reports</a>
-                  <a href="#" class="btn btn-primary btn-round">New Transaction</a>
-                </div>
-              </div>
-              
-              <!-- Stats Cards -->
-              <div class="row">
-                <div class="col-sm-6 col-md-3">
-                  <div class="card card-stats card-round">
-                    <div class="card-body">
-                      <div class="row align-items-center">
-                        <div class="col-icon">
-                          <div class="icon-big text-center icon-primary bubble-shadow-small">
-                            <i class="fas fa-dollar-sign"></i>
-                          </div>
-                        </div>
-                        <div class="col col-stats ms-3 ms-sm-0">
-                          <div class="numbers">
-                            <p class="card-category">Total Balance</p>
-                            <h4 class="card-title">$12,450.50</h4>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-md-3">
-                  <div class="card card-stats card-round">
-                    <div class="card-body">
-                      <div class="row align-items-center">
-                        <div class="col-icon">
-                          <div class="icon-big text-center icon-info bubble-shadow-small">
-                            <i class="fas fa-chart-line"></i>
-                          </div>
-                        </div>
-                        <div class="col col-stats ms-3 ms-sm-0">
-                          <div class="numbers">
-                            <p class="card-category">Monthly Profit</p>
-                            <h4 class="card-title">+8.5%</h4>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-md-3">
-                  <div class="card card-stats card-round">
-                    <div class="card-body">
-                      <div class="row align-items-center">
-                        <div class="col-icon">
-                          <div class="icon-big text-center icon-success bubble-shadow-small">
-                            <i class="fas fa-exchange-alt"></i>
-                          </div>
-                        </div>
-                        <div class="col col-stats ms-3 ms-sm-0">
-                          <div class="numbers">
-                            <p class="card-category">Exchanges</p>
-                            <h4 class="card-title">24</h4>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-md-3">
-                  <div class="card card-stats card-round">
-                    <div class="card-body">
-                      <div class="row align-items-center">
-                        <div class="col-icon">
-                          <div class="icon-big text-center icon-secondary bubble-shadow-small">
-                            <i class="fas fa-wallet"></i>
-                          </div>
-                        </div>
-                        <div class="col col-stats ms-3 ms-sm-0">
-                          <div class="numbers">
-                            <p class="card-category">Transactions</p>
-                            <h4 class="card-title">156</h4>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="card card-round">
-                    <div class="card-header">
-                      <div class="card-head-row card-tools-still-right">
-                        <div class="card-title">Recent Transactions</div>
-                      </div>
-                    </div>
-                    <div class="card-body p-0">
-                      <div class="table-responsive">
-                        <table class="table align-items-center mb-0">
-                          <thead class="thead-light">
-                            <tr>
-                              <th scope="col">Transaction</th>
-                              <th scope="col" class="text-end">Date</th>
-                              <th scope="col" class="text-end">Amount</th>
-                              <th scope="col" class="text-end">Status</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <th scope="row">
-                                <button class="btn btn-icon btn-round btn-success btn-sm me-2">
-                                  <i class="fa fa-check"></i>
-                                </button>
-                                Currency Exchange - USD to EUR
-                              </th>
-                              <td class="text-end">Aug 08, 2025, 10:30am</td>
-                              <td class="text-end">$1,250.00</td>
-                              <td class="text-end">
-                                <span class="badge badge-success">Completed</span>
-                              </td>
-                            </tr>
-                            <tr>
-                              <th scope="row">
-                                <button class="btn btn-icon btn-round btn-info btn-sm me-2">
-                                  <i class="fa fa-credit-card"></i>
-                                </button>
-                                Payment Received #10245
-                              </th>
-                              <td class="text-end">Aug 07, 2025, 4:15pm</td>
-                              <td class="text-end">$890.00</td>
-                              <td class="text-end">
-                                <span class="badge badge-success">Completed</span>
-                              </td>
-                            </tr>
-                            <tr>
-                              <th scope="row">
-                                <button class="btn btn-icon btn-round btn-warning btn-sm me-2">
-                                  <i class="fa fa-clock"></i>
-                                </button>
-                                Transfer to Savings
-                              </th>
-                              <td class="text-end">Aug 07, 2025, 2:00pm</td>
-                              <td class="text-end">$500.00</td>
-                              <td class="text-end">
-                                <span class="badge badge-warning">Pending</span>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-							<h1>Economic Dashboard – Real-Time KPI Cards</h1>
-							<div class="kpi-container">
-								<div class="kpi-card">
-										<div class="kpi-title">USD to MYR</div>
-										<div class="kpi-value" id="usd-myr">Loading...</div>
-										<div class="kpi-update" id="usd-myr">--</div>
-								</div>
-								<div class="kpi-card">
-										<div class="kpi-title">EUR to MYR</div>
-										<div class="kpi-value" id="eur-myr">Loading...</div>
-										<div class="kpi-update" id="eur-myr">--</div>
-								</div>
-								<div class="kpi-card">
-										<div class="kpi-title">GDP Growth</div>
-										<div class="kpi-value" id="inflation">Loading...</div>
-										<div class="kpi-update" id="inflation">--</div>
-								</div>
-								<div class="kpi-card">
-										<div class="kpi-title">Inflation Rate</div>
-										<div class="kpi-value" id="gdp">Loading...</div>
-										<div class="kpi-update" id="gdp">--</div>
-								</div>
+						<h1>Economic Data Dashboard</h1>
+						<br>
+						<!-- KPI CARDS -->
+						<section class="grid0 kpis0">
+							<div class="card0">
+								<div class="kpi-title0">GDP Growth</div>
+								<div class="kpi-value0" id="kpi-gdp">—</div>
+								<div class="updated0" id="kpi-gdp-upd">—</div>
 							</div>
-							<hr>
-								<div class="chart-container">
-										<h2>Historical USD to MYR (Line Chart)</h2>
-										<canvas id="lineChart"></canvas>
-								</div>
-								<div class="chart-container">
-										<h2>Commodity Prices (Bar Chart)</h2>
-										<canvas id="barChart"></canvas>
-								</div>
+							<div class="card0">
+								<div class="kpi-title0">Inflation Rate</div>
+								<div class="kpi-value0" id="kpi-cpi">—</div>
+								<div class="updated0" id="kpi-cpi-upd">—</div>
+							</div>
+							<div class="card0">
+								<div class="kpi-title0">USD → MYR</div>
+								<div class="kpi-value0" id="kpi-usdmyr">Loading…</div>
+								<div class="updated0" id="kpi-usdmyr-upd">—</div>
+							</div>
+							<div class="card0">
+								<div class="kpi-title0">EUR → MYR</div>
+								<div class="kpi-value0" id="kpi-eurmyr">Loading…</div>
+								<div class="updated0" id="kpi-eurmyr-upd">—</div>
+							</div>
+						</section>
+
+						<!-- CHARTS -->
+						<section class="grid0 charts0" style="margin-top:22px">
+							<div class="card0">
+								<div class="kpi-title0" style="margin-bottom:8px">Historical USD → MYR (last 14 days)</div>
+								<canvas id="lineChart"></canvas>
+							</div>
+							<div class="card0">
+								<div class="kpi-title0" style="margin-bottom:8px">Major Pairs vs USD (Bar)</div>
+								<canvas id="barChart"></canvas>
+							</div>
+						</section>
+
+						<!-- TABLE + FILTERS -->
+						<section class="card0" style="margin-top:22px">
+							<div class="controls0">
+								<label>Base:
+									<select id="baseCurrency">
+										<option>USD</option><option>MYR</option><option>EUR</option>
+										<option>GBP</option><option>JPY</option><option>AUD</option><option>SGD</option>
+									</select>
+								</label>
+								<label>Target:
+									<select id="targetCurrency">
+										<option>MYR</option><option>USD</option><option>EUR</option>
+										<option>GBP</option><option>JPY</option><option>AUD</option><option>SGD</option>
+									</select>
+								</label>
+							</div>
+							<table>
+								<thead><tr><th>Timestamp</th><th>Base</th><th>Target</th><th>Rate</th></tr></thead>
+								<tbody id="exchangeTable"><tr><td colspan="4">Loading…</td></tr></tbody>
+							</table>
+						</section>
             </div>
           </div>
         </div>
@@ -598,90 +335,6 @@
         </div>
 
         <script src="js.js"></script>
-
-        <!-- Markets Page -->
-        <div id="markets-page" class="page-content" style="display: none;">
-          <div class="container">
-            <div class="page-inner">
-              <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
-                <div>
-                  <h3 class="fw-bold mb-3">Market Overview</h3>
-                  <h6 class="op-7 mb-2">Stay updated with global financial markets</h6>
-                </div>
-              </div>
-              
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="card card-round">
-                    <div class="card-body">
-                      <h4 class="card-title text-center mb-4">Global Markets</h4>
-                      <div class="text-center">
-                        <p>Market data and analysis will be displayed here.</p>
-                        <p class="text-muted">View stock prices, market trends, and financial news.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Transactions Page -->
-        <div id="transactions-page" class="page-content" style="display: none;">
-          <div class="container">
-            <div class="page-inner">
-              <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
-                <div>
-                  <h3 class="fw-bold mb-3">Transaction History</h3>
-                  <h6 class="op-7 mb-2">View and manage all your transactions</h6>
-                </div>
-              </div>
-              
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="card card-round">
-                    <div class="card-body">
-                      <h4 class="card-title text-center mb-4">All Transactions</h4>
-                      <div class="text-center">
-                        <p>Complete transaction history will be displayed here.</p>
-                        <p class="text-muted">Filter, search, and export your transaction data.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Reports Page -->
-        <div id="reports-page" class="page-content" style="display: none;">
-          <div class="container">
-            <div class="page-inner">
-              <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
-                <div>
-                  <h3 class="fw-bold mb-3">Financial Reports</h3>
-                  <h6 class="op-7 mb-2">Generate comprehensive financial reports</h6>
-                </div>
-              </div>
-              
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="card card-round">
-                    <div class="card-body">
-                      <h4 class="card-title text-center mb-4">Reports & Analytics</h4>
-                      <div class="text-center">
-                        <p>Financial reports and analytics will be displayed here.</p>
-                        <p class="text-muted">Generate monthly reports, profit/loss statements, and tax documents.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
         <!-- About Page -->
         <div id="about-page" class="page-content" style="display: none;">

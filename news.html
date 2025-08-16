@@ -1,342 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NewsPulse - Multi-Source News Feed</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+  <link rel="icon" href="assets/img/kaiadmin/favicon.ico" type="image/x-icon" />
 
-    :root {
-      --primary: #2563eb;
-      --primary-dark: #1d4ed8;
-      --secondary: #64748b;
-      --accent: #f59e0b;
-      --success: #10b981;
-      --danger: #ef4444;
-      --background: #0f172a;
-      --surface: #1e293b;
-      --surface-light: #334155;
-      --text: #f8fafc;
-      --text-secondary: #cbd5e1;
-      --border: #475569;
-      --shadow: rgba(0, 0, 0, 0.3);
-    }
+  <!-- Fonts and icons -->
+  <script src="assets/js/plugin/webfont/webfont.min.js"></script>
+  <script>
+    WebFont.load({
+      google: { families: ["Public Sans:300,400,500,600,700"] },
+      custom: {
+        families: [
+          "Font Awesome 5 Solid",
+          "Font Awesome 5 Regular",
+          "Font Awesome 5 Brands",
+          "simple-line-icons",
+        ],
+        urls: ["assets/css/fonts.min.css"],
+      },
+      active: function () {
+        sessionStorage.fonts = true;
+      },
+    });
+  </script>
 
-    body {
-      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: linear-gradient(135deg, var(--background) 0%, #1a202c 100%);
-      color: var(--text);
-      min-height: 100vh;
-      line-height: 1.6;
-    }
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="assets/css/plugins.min.css" />
+  <link rel="stylesheet" href="assets/css/kaiadmin.min.css" />
+  <link rel="stylesheet" href="assets/css/news.css">
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 1rem;
-    }
-
-    header {
-      background: rgba(30, 41, 59, 0.8);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .header-content {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1rem 0;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--primary);
-    }
-
-    .logo::before {
-      content: "📰";
-      font-size: 1.8rem;
-    }
-
-    .controls {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .refresh-btn {
-      background: linear-gradient(45deg, var(--primary), var(--primary-dark));
-      color: white;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .refresh-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3);
-    }
-
-    .refresh-btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .spinner {
-      width: 16px;
-      height: 16px;
-      border: 2px solid transparent;
-      border-top: 2px solid currentColor;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    .filter-tabs {
-      display: flex;
-      gap: 0.5rem;
-      margin-bottom: 2rem;
-      overflow-x: auto;
-      padding: 0.5rem 0;
-    }
-
-    .filter-tab {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--text-secondary);
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      white-space: nowrap;
-      font-size: 0.9rem;
-    }
-
-    .filter-tab:hover {
-      background: var(--surface-light);
-      color: var(--text);
-    }
-
-    .filter-tab.active {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary);
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-      margin: 2rem 0;
-    }
-
-    .stat-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.5rem;
-      text-align: center;
-    }
-
-    .stat-number {
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--primary);
-    }
-
-    .stat-label {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-    }
-
-    .news-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 1.5rem;
-      margin: 2rem 0;
-    }
-
-    .news-item {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      overflow: hidden;
-      transition: all 0.3s ease;
-      cursor: pointer;
-      position: relative;
-    }
-
-    .news-item:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 40px var(--shadow);
-      border-color: var(--primary);
-    }
-
-    .news-item.fade-in {
-      animation: fadeIn 0.5s ease-out;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .news-content {
-      padding: 1.5rem;
-    }
-
-    .news-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      line-height: 1.4;
-      color: var(--text);
-      text-decoration: none;
-      display: block;
-    }
-
-    .news-title:hover {
-      color: var(--primary);
-    }
-
-    .news-meta {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1rem;
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-    }
-
-    .source-tag {
-      background: var(--primary);
-      color: white;
-      padding: 0.25rem 0.75rem;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: 500;
-    }
-
-    .source-tag.bbc {
-      background: #bb1919;
-    }
-
-    .source-tag.nyt {
-      background: #000;
-    }
-
-    .news-description {
-      color: var(--text-secondary);
-      line-height: 1.5;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .loading-state {
-      text-align: center;
-      padding: 4rem;
-      color: var(--text-secondary);
-    }
-
-    .loading-state .spinner {
-      width: 40px;
-      height: 40px;
-      border-width: 3px;
-      margin: 0 auto 1rem;
-    }
-
-    .error-state {
-      text-align: center;
-      padding: 4rem;
-      color: var(--danger);
-    }
-
-    .empty-state {
-      text-align: center;
-      padding: 4rem;
-      color: var(--text-secondary);
-    }
-
-    @media (max-width: 768px) {
-      .container {
-        padding: 0 0.5rem;
-      }
-
-      .header-content {
-        flex-direction: column;
-        gap: 1rem;
-      }
-
-      .news-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-      }
-
-      .stats {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    .scroll-to-top {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      background: var(--primary);
-      color: white;
-      border: none;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      cursor: pointer;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-      z-index: 1000;
-    }
-
-    .scroll-to-top.visible {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .scroll-to-top:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3);
-    }
-  </style>
 </head>
 <body>
+
+<div class="wrapper">
+  <!-- Sidebar -->
+  <div class="sidebar" data-background-color="dark">
+    <div class="sidebar-logo">
+      <!-- Logo Header -->
+      <div class="logo-header" data-background-color="dark">
+        <a href="index.html" class="logo">
+          <img
+            src="assets/img/synclogo.jpeg"
+            alt="navbar brand"
+            class="navbar-brand"
+            height="100px"
+          />
+        </a>
+        <div class="nav-toggle">
+          <button class="btn btn-toggle toggle-sidebar">
+            <i class="gg-menu-right"></i>
+          </button>
+          <button class="btn btn-toggle sidenav-toggler">
+            <i class="gg-menu-left"></i>
+          </button>
+        </div>
+        <button class="topbar-toggler more">
+          <i class="gg-more-vertical-alt"></i>
+        </button>
+      </div>
+      <!-- End Logo Header -->
+    </div>
+    <div class="sidebar-wrapper scrollbar scrollbar-inner">
+      <div class="sidebar-content">
+        <ul class="nav nav-secondary">
+          <li class="nav-item">
+            <a href="index.html">
+              <i class="fas fa-home"></i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#exchange" onclick="window.location.href='index.html#exchange'">
+              <i class="fas fa-exchange-alt"></i>
+              <p>Currency Exchange</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="chatbot.html">
+              <i class="fas fa-robot"></i>
+              <p>Chatbot</p>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a href="news.html">
+              <i class="fas fa-newspaper"></i>
+              <p>News</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#about" onclick="window.location.href='index.html#about'">
+              <i class="fas fa-info-circle"></i>
+              <p>About</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- End Sidebar -->
+
   <header>
     <div class="container">
       <div class="header-content">
@@ -586,5 +352,41 @@
     // Initial load
     loadFeeds();
   </script>
+
+  
+    <!--   Core JS Files   -->
+    <script src="assets/js/core/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/core/popper.min.js"></script>
+    <script src="assets/js/core/bootstrap.min.js"></script>
+
+    <!-- jQuery Scrollbar -->
+    <script src="assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+
+    <!-- Chart JS -->
+    <script src="assets/js/plugin/chart.js/chart.min.js"></script>
+
+    <!-- jQuery Sparkline -->
+    <script src="assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+
+    <!-- Chart Circle -->
+    <script src="assets/js/plugin/chart-circle/circles.min.js"></script>
+
+    <!-- Datatables -->
+    <script src="assets/js/plugin/datatables/datatables.min.js"></script>
+
+    <!-- Bootstrap Notify -->
+    <script src="assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+
+    <!-- jQuery Vector Maps -->
+    <script src="assets/js/plugin/jsvectormap/jsvectormap.min.js"></script>
+    <script src="assets/js/plugin/jsvectormap/world.js"></script>
+
+    <!-- Sweet Alert -->
+    <script src="assets/js/plugin/sweetalert/sweetalert.min.js"></script>
+
+    <!-- Kaiadmin JS -->
+    <script src="assets/js/kaiadmin.min.js"></script>
+		
+		<script src="assets/js/extradashboard.js"></script>
 </body>
 </html>

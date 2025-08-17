@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>FinanceHub - Currency Exchange</title>
+    <meta
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+      name="viewport"
+    />
+    <link
+      rel="icon"
+      href="assets/img/kaiadmin/favicon.ico"
+      type="image/x-icon"
+    />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/kaiadmin.min.css" />
+    <script src="js.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.js"></script>
+
+<style>
+.rates-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 20px;
+margin-top: 30px;
+}
+
+.rate-card {
+background: white;
+border: 2px solid #e1e5e9;
+border-radius: 12px;
+padding: 20px;
+text-align: center;
+transition: all 0.3s;
+}
+
+.rate-card:hover {
+border-color: #667eea;
+transform: translateY(-4px);
+box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.rate-card .currency-code {
+font-size: 1.2rem;
+font-weight: 700;
+color: #333;
+margin-bottom: 5px;
+}
+
+.rate-card .rate-value {
+font-size: 1.4rem;
+font-weight: 600;
+color: #667eea;
+}
+
+/* Scrollable rates container */
+.scrollable-rates-container {
+max-height: 400px;
+overflow-y: auto;
+padding-right: 10px;
+}
+
+.scrollable-rates-container::-webkit-scrollbar {
+width: 6px;
+}
+
+.scrollable-rates-container::-webkit-scrollbar-track {
+background: #f1f1f1;
+border-radius: 3px;
+}
+
+.scrollable-rates-container::-webkit-scrollbar-thumb {
+background: #c1c1c1;
+border-radius: 3px;
+}
+
+.scrollable-rates-container::-webkit-scrollbar-thumb:hover {
+background: #a8a8a8;
+}
+
+/* Enhanced result card styling */
+.result-card {
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+border-radius: 16px;
+padding: 24px;
+color: white;
+box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+border: 1px solid rgba(255, 255, 255, 0.2);
+backdrop-filter: blur(10px);
+position: relative;
+overflow: hidden;
+animation: slideInUp 0.5s ease-out;
+}
+
+.result-card::before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+pointer-events: none;
+}
+
+.result-amount {
+font-size: 2.2rem;
+font-weight: 800;
+text-align: center;
+margin-bottom: 12px;
+text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+letter-spacing: -0.5px;
+position: relative;
+z-index: 1;
+}
+
+.result-amount::before {
+content: '💰';
+margin-right: 8px;
+font-size: 1.8rem;
+}
+
+.result-info {
+text-align: center;
+font-size: 0.95rem;
+line-height: 1.6;
+opacity: 0.95;
+font-weight: 500;
+position: relative;
+z-index: 1;
+}
+
+.result-info strong {
+font-weight: 700;
+color: #fff;
+}
+
+.conversion-rate {
+display: inline-flex;
+align-items: center;
+background: rgba(255, 255, 255, 0.15);
+padding: 6px 12px;
+border-radius: 20px;
+margin-top: 8px;
+font-size: 0.85rem;
+border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.conversion-rate::before {
+content: '⚡';
+margin-right: 6px;
+}
+
+@keyframes slideInUp {
+from {
+transform: translateY(20px);
+opacity: 0;
+}
+to {
+transform: translateY(0);
+opacity: 1;
+}
+}
+
+/* Hover effect for result card */
+.result-card:hover {
+transform: translateY(-2px);
+box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+transition: all 0.3s ease;
+}
+
+/* Default result display */
+#result {
+min-height: 60px;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.default-result {
+background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+border: 2px dashed #dee2e6;
+border-radius: 12px;
+padding: 20px;
+text-align: center;
+color: #6c757d;
+font-style: italic;
+}
+
+.default-result::before {
+content: '🔄';
+display: block;
+font-size: 2rem;
+margin-bottom: 8px;
+}
+
+/* Enhanced swap button styling */
+.swap-btn {
+position: relative;
+transition: all 0.3s ease;
+border: 2px solid #667eea !important;
+color: #667eea !important;
+font-weight: 600;
+}
+
+.swap-btn:hover {
+background: #667eea !important;
+color: white !important;
+transform: scale(1.05);
+box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.swap-icon {
+display: inline-block;
+transition: transform 0.3s ease;
+font-size: 1.1em;
+}
+
+.swap-btn:hover .swap-icon {
+transform: rotate(180deg);
+}
+
+.swap-btn:active {
+transform: scale(0.98);
+}
+
+/* Improved form controls */
+.currency-input .form-control, 
+.currency-input .form-select {
+border: 2px solid #e1e5e9;
+border-radius: 8px;
+transition: all 0.3s ease;
+}
+
+.currency-input .form-control:focus, 
+.currency-input .form-select:focus {
+border-color: #667eea;
+box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.15);
+}
+
+/* Convert button enhancement */
+#convertBtn {
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+border: none;
+font-weight: 600;
+padding: 12px;
+border-radius: 8px;
+transition: all 0.3s ease;
+}
+
+#convertBtn:hover {
+transform: translateY(-2px);
+box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+</style>
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <!-- Sidebar -->
+      <div class="sidebar" data-background-color="dark">
+        <div class="sidebar-logo">
+          <!-- Logo Header -->
+          <div class="logo-header" data-background-color="dark">
+            <a href="index.html" class="logo">
+              <img
+                src=""
+                alt="navbar brand"
+                class="navbar-brand"
+                height="20"
+              />
+            </a>
+          </div>
+          <!-- End Logo Header -->
+        </div>
+        <div class="sidebar-wrapper scrollbar scrollbar-inner">
+          <div class="sidebar-content">
+            <ul class="nav nav-secondary">
+              <li class="nav-item">
+                <a href="index.html">
+                  <i class="fas fa-home"></i>
+                  <p>Dashboard</p>
+                </a>
+              </li>
+              <li class="nav-item active">
+                <a href="exchangerate.html">
+                  <i class="fas fa-exchange-alt"></i>
+                  <p>Currency Exchange</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="chatbot.html">
+                  <i class="fas fa-robot"></i>
+                  <p>Chatbot</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="news.html">
+                  <i class="fas fa-newspaper"></i>
+                  <p>News</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="about.html">
+                  <i class="fas fa-info-circle"></i>
+                  <p>About</p>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- End Sidebar -->
+
+      <div class="main-panel">
+        <!-- Currency Exchange Page -->
+        <div id="exchange-page" class="page-content">
+          <div class="container">
+            <div class="page-inner">
+              <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
+                <div>
+                  <h3 class="fw-bold mb-3">💱 Currency Exchange</h3>
+                  <h6 class="op-7 mb-2">Real-time exchange rates powered by Frankfurter API</h6>
+                </div>
+              </div>
+
+              <!-- Currency Converter -->
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="card card-round">
+                    <div class="card-header">
+                      <div class="card-title">Currency Converter</div>
+                    </div>
+                    <div class="card-body">
+                      <div class="converter-section">
+                        <div class="currency-input mb-3">
+                          <label for="fromAmount" class="form-label">From</label>
+                          <div class="input-group">
+                            <input type="number" class="form-control" id="fromAmount" value="1" step="0.01" min="0">
+                            <select class="form-select" id="fromCurrency">
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="text-center mb-3">
+                          <button class="btn btn-outline-primary btn-sm swap-btn" id="swapBtn" title="Swap currencies">
+                            <span class="swap-icon">⇄</span> Swap
+                          </button>
+                        </div>
+
+                        <div class="currency-input mb-3">
+                          <label for="toAmount" class="form-label">To</label>
+                          <div class="input-group">
+                            <input type="number" class="form-control" id="toAmount" readonly>
+                            <select class="form-select" id="toCurrency">
+                            </select>
+                          </div>
+                        </div>
+
+                        <button class="btn btn-primary w-100" id="convertBtn">Convert Currency</button>
+                        <div id="result" class="mt-3">
+                          <div class="default-result">
+                            Enter an amount to see the conversion result
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="card card-round">
+                    <div class="card-header">
+                      <div class="card-title">Current Exchange Rates (Base: RM)</div>
+                    </div>
+                    <div class="card-body">
+                      <div class="scrollable-rates-container">
+                        <div id="ratesContainer">
+                          <div class="text-center">Loading exchange rates...</div>
+                        </div>
+                      </div>
+                      <div id="lastUpdated" class="small text-muted mt-3"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Historical Chart -->
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card card-round">
+                    <div class="card-header">
+                      <div class="card-title">📈 Historical Exchange Rates</div>
+                    </div>
+                    <div class="card-body">
+                      <div class="chart-controls mb-4">
+                        <div class="row">
+                          <div class="col-md-3">
+                            <label class="form-label">Base Currency</label>
+                            <select class="form-select" id="chartBaseCurrency">
+                            
+                            </select>
+                          </div>
+                          <div class="col-md-3">
+                            <label class="form-label">Target Currency</label>
+                            <select class="form-select" id="chartTargetCurrency">
+                            </select>
+                          </div>
+                          <div class="col-md-3">
+                            <label class="form-label">Time Period</label>
+                            <div class="btn-group w-100" role="group">
+                              <button type="button" class="btn btn-outline-primary active period-btn" data-period="7">7D</button>
+                              <button type="button" class="btn btn-outline-primary period-btn" data-period="30">1M</button>
+                              <button type="button" class="btn btn-outline-primary period-btn" data-period="90">3M</button>
+                              <button type="button" class="btn btn-outline-primary period-btn" data-period="180">6M</button>
+                              <button type="button" class="btn btn-outline-primary period-btn" data-period="365">1Y</button>
+                              <button type="button" class="btn btn-outline-primary period-btn" data-period="730">2Y</button>
+                              <button type="button" class="btn btn-outline-primary period-btn" data-period="1095">3Y</button>
+                              <button type="button" class="btn btn-outline-primary period-btn" data-period="1825">5Y</button>
+                              <button type="button" class="btn btn-outline-primary period-btn" data-period="3650">10Y</button>
+                              <button type="button" class="btn btn-outline-primary period-btn" data-period="9490">ALL</button>
+                            </div>
+                          </div>
+                        <div class="col-md-4">
+                            <label>Chart Type</label>
+                            <div class="btn-group w-100" role="group">
+                              <button type="button" class="btn btn-outline-primary chart-type-btn active"  data-type="line">📈 Line</button>
+                              <button type="button" class="btn btn-outline-primary chart-type-btn "  data-type="bar">📊 Bar</button>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                      </div>
+                      <div id="chartContainer" style="height: 600px;width: 1200px;">
+                        <canvas id="exchangeChart"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </body>
+</html>

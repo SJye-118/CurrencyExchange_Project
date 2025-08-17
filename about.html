@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>FinanceHub - About Us</title>
+    <meta
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+      name="viewport"
+    />
+    <link
+      rel="icon"
+      href="assets/img/kaiadmin/favicon.ico"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/kaiadmin.min.css" />
+    
+    <style>
+      /* Enhanced About Page Styles */
+      .hero-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 60px 0;
+        border-radius: 20px;
+        margin-bottom: 40px;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .hero-section::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        animation: float 6s ease-in-out infinite;
+      }
+      
+      @keyframes float {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-20px) rotate(180deg); }
+      }
+      
+      .hero-content {
+        position: relative;
+        z-index: 2;
+      }
+      
+      .feature-card {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        border: none;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .feature-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, #667eea, #764ba2);
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+      }
+      
+      .feature-card:hover::before {
+        transform: scaleX(1);
+      }
+      
+      .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      }
+      
+      .feature-icon {
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 28px;
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
+      }
+      
+      .feature-card:hover .feature-icon {
+        transform: scale(1.1) rotate(5deg);
+      }
+    
+      
+      .timeline {
+        position: relative;
+        padding: 20px 0;
+      }
+      
+      .timeline::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(180deg, #667eea, #764ba2);
+        transform: translateX(-50%);
+      }
+      
+      .timeline-item {
+        position: relative;
+        margin: 40px 0;
+        width: 45%;
+      }
+      
+      .timeline-item:nth-child(even) {
+        margin-left: 55%;
+      }
+      
+      .timeline-content {
+        background: white;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        position: relative;
+      }
+      
+      .timeline-content::before {
+        content: '';
+        position: absolute;
+        top: 20px;
+        width: 0;
+        height: 0;
+        border: 10px solid transparent;
+      }
+      
+      .timeline-item:nth-child(odd) .timeline-content::before {
+        right: -20px;
+        border-left-color: white;
+      }
+      
+      .timeline-item:nth-child(even) .timeline-content::before {
+        left: -20px;
+        border-right-color: white;
+      }
+      
+      .timeline-dot {
+        position: absolute;
+        left: 50%;
+        top: 20px;
+        width: 20px;
+        height: 20px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border-radius: 50%;
+        transform: translateX(-50%);
+        z-index: 2;
+      }
+      
+      
+      .page-content {
+        margin-left: 0px;
+        padding: 20px;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      }
+      
+      @media (max-width: 768px) {
+        .page-content {
+          margin-left: 0;
+        }
+        
+        .timeline::before {
+          left: 20px;
+        }
+        
+        .timeline-item {
+          width: calc(100% - 60px);
+          margin-left: 60px !important;
+        }
+        
+        .timeline-item:nth-child(even) {
+          margin-left: 60px;
+        }
+        
+        .timeline-content::before {
+          left: -20px !important;
+          border-right-color: white !important;
+          border-left-color: transparent !important;
+        }
+        
+        .timeline-dot {
+          left: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <!-- Sidebar -->
+      <div class="sidebar" data-background-color="dark">
+        <div class="sidebar-logo">
+          <div class="logo-header" data-background-color="dark">
+            <a href="index.html" class="logo">
+              <img
+                src="assets/img/kaiadmin/logo_light.svg"
+                alt="navbar brand"
+                class="navbar-brand"
+                height="20"
+              />
+            </a>
+          </div>
+        </div>
+        <div class="sidebar-wrapper scrollbar scrollbar-inner">
+          <div class="sidebar-content">
+            <ul class="nav nav-secondary">
+              <li class="nav-item">
+                <a href="index.html">
+                  <i class="fas fa-home"></i>
+                  <p>Dashboard</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="exchangerate.html">
+                  <i class="fas fa-exchange-alt"></i>
+                  <p>Currency Exchange</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="chatbot.html">
+                  <i class="fas fa-robot"></i>
+                  <p>Chatbot</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="news.html">
+                  <i class="fas fa-newspaper"></i>
+                  <p>News</p>
+                </a>
+              </li>
+              <li class="nav-item active">
+                <a href="about.html">
+                  <i class="fas fa-info-circle"></i>
+                  <p>About</p>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- End Sidebar -->
+
+      <!-- Main Panel -->
+      <div class="main-panel">
+        <div class="page-content">
+          <div class="container-fluid">
+            <!-- Hero Section -->
+            <div class="hero-section">
+              <div class="hero-content text-center">
+                <h1 class="display-4 fw-bold mb-4">Welcome to CurrenSync</h1>
+                <p class="lead mb-4">Your comprehensive currency exchange platform designed to simplify and enhance your currency checking experience</p>
+                <div class="badge justify-content-center">
+                  <span class="badge bg-light text-dark px-3 py-2">Free to Use</span>
+                  <span class="badge bg-light text-dark px-3 py-2">No Registration needed</span>
+                  <span class="badge bg-light text-dark px-3 py-2">Secured Platform</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Features Section -->
+            <div class="row mb-5">
+              <div class="col-12 mb-4">
+                <h2 class="fw-bold text-center">What Makes Us Different</h2>
+                <p class="text-center text-muted">Discover the features that set CurrenSync apart from other exchange rate platforms</p>
+              </div>
+              
+              <div class="col-md-4 mb-4">
+                <div class="feature-card">
+                  <div class="feature-icon">
+                    <i class="fas fa-exchange-alt"></i>
+                  </div>
+                  <h5 class="fw-bold">Real-time Currency Exchange</h5>
+                  <p class="text-muted">Get up-to-date exchange rates powered by the European Central Bank. Convert currencies instantly with our intuitive interface.</p>
+                </div>
+              </div>
+              
+              <div class="col-md-4 mb-4">
+                <div class="feature-card">
+                  <div class="feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                  </div>
+                  <h5 class="fw-bold">Portfolio Management</h5>
+                  <p class="text-muted">Track your investments, analyze performance trends, and make informed decisions with our comprehensive portfolio tools.</p>
+                </div>
+              </div>
+              
+              <div class="col-md-4 mb-4">
+                <div class="feature-card">
+                  <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                  </div>
+                  <h5 class="fw-bold">Data Confidentiality</h5>
+                  <p class="text-muted">Our exchange rate data is fetched from free and reliable sources. Truth is our commitment to transparency.</p>
+                </div>
+              </div>
+              
+              <div class="col-md-4 mb-4">
+                <div class="feature-card">
+                  <div class="feature-icon">
+                    <i class="fas fa-robot"></i>
+                  </div>
+                  <h5 class="fw-bold">AI-Powered Insights</h5>
+                  <p class="text-muted">Get personalized exchange rate insights powered by our advanced AI chatbot assistant.</p>
+                </div>
+              </div>
+              
+              <div class="col-md-4 mb-4">
+                <div class="feature-card">
+                  <div class="feature-icon">
+                    <i class="fas fa-newspaper"></i>
+                  </div>
+                  <h5 class="fw-bold">Market Intelligence</h5>
+                  <p class="text-muted">Stay informed with real-time exchange rate news and market updates from trusted sources worldwide.</p>
+                </div>
+              </div>
+              
+              <div class="col-md-4 mb-4">
+                <div class="feature-card">
+                  <div class="feature-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                  </div>
+                  <h5 class="fw-bold">Cross-Platform Access</h5>
+                  <p class="text-muted">Access exchange rate data anywhere, anytime with our responsive design that works on all devices.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Timeline Section -->
+            <div class="row mb-5">
+              <div class="col-12 mb-4">
+                <h2 class="fw-bold text-center">Our Journey</h2>
+                <p class="text-center text-muted">From startup to industry leader - here's how we've grown</p>
+              </div>
+              
+              <div class="col-12">
+                <div class="timeline">
+                  <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                      <h5 class="fw-bold">2020 - The Beginning</h5>
+                      <p class="text-muted">CurrenSync was founded with a vision to simplify currency exchange checking for everyone.</p>
+                    </div>
+                  </div>
+                  
+                  <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                      <h5 class="fw-bold">2021 - First Major Update</h5>
+                      <p class="text-muted">Launched real-time currency exchange feature and reached 10,000 users milestone.</p>
+                    </div>
+                  </div>
+                  
+                  <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                      <h5 class="fw-bold">2022 - AI Integration</h5>
+                      <p class="text-muted">Introduced AI-powered chatbot and portfolio management tools to enhance user experience.</p>
+                    </div>
+                  </div>
+                  
+                  <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                      <h5 class="fw-bold">2023 - Global Expansion</h5>
+                      <p class="text-muted">Expanded to support 50+ currencies and reached 50,000 users worldwide.</p>
+                    </div>
+                  </div>
+                  
+                  <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                      <h5 class="fw-bold">2024 - Mobile Revolution</h5>
+                      <p class="text-muted">Launched fully responsive design and mobile app, crossing 100,000 active users.</p>
+                    </div>
+                  </div>
+                  
+                  <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                      <h5 class="fw-bold">2025 - The Future</h5>
+                      <p class="text-muted">Continuing innovation with advanced analytics, machine learning insights, and expanded global reach.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- Contact Section -->
+            <div class="row">
+              <div class="col-md-12 ">
+                <div class="card feature-card">
+                  <div class="card-body">
+                    <h4 class="fw-bold mb-4">Technical Information</h4>
+                    
+                    <div class="row">
+                      <div class="col-md-6">
+                        <h6 class="fw-bold text-primary">Data Sources</h6>
+                        <ul class="list-unstyled">
+                          <li><i class="fas fa-check text-success me-2"></i>European Central Bank API</li>
+                          <li><i class="fas fa-check text-success me-2"></i>Frankfurter API for Currency Data</li>
+                          <li><i class="fas fa-check text-success me-2"></i>Real-time Economic/Business News APIs</li>
+                      </div>
+                      
+                      <div class="col-md-6">
+                        <h6 class="fw-bold text-primary">System Information</h6>
+                        <div class="bg-light p-3 rounded">
+                          <p class="mb-1"><strong>Version:</strong> 2.5.0</p>
+                          <p class="mb-1"><strong>Last Updated:</strong> August 2025</p>
+                          <p class="mb-1"><strong>Build:</strong> 20250817</p>
+                          <p class="mb-1"><strong>Uptime:</strong> 99.9%</p>
+                          <p class="mb-0"><strong>Response Time:</strong> &lt; 200ms</p>
+                        </div>
+                        
+                        <h6 class="fw-bold text-primary mt-4">Supported Platforms</h6>
+                        <div class="badge- gap-2 flex-wrap">
+                          <span class="badge bg-primary">Web Browser</span>
+                          <span class="badge bg-primary">Mobile Responsive</span>
+                          <span class="badge bg-primary">Desktop App</span>
+                          <span class="badge bg-primary">API Access</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

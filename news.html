@@ -6,26 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NewsPulse - Multi-Source News Feed</title>
   <link rel="icon" href="assets/img/kaiadmin/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 
-  <!-- Fonts and icons -->
-  <script src="assets/js/plugin/webfont/webfont.min.js"></script>
-  <script>
-    WebFont.load({
-      google: { families: ["Public Sans:300,400,500,600,700"] },
-      custom: {
-        families: [
-          "Font Awesome 5 Solid",
-          "Font Awesome 5 Regular",
-          "Font Awesome 5 Brands",
-          "simple-line-icons",
-        ],
-        urls: ["assets/css/fonts.min.css"],
-      },
-      active: function () {
-        sessionStorage.fonts = true;
-      },
-    });
-  </script>
 
   <!-- CSS Files -->
   <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
@@ -50,17 +32,6 @@
             height="100px"
           />
         </a>
-        <div class="nav-toggle">
-          <button class="btn btn-toggle toggle-sidebar">
-            <i class="gg-menu-right"></i>
-          </button>
-          <button class="btn btn-toggle sidenav-toggler">
-            <i class="gg-menu-left"></i>
-          </button>
-        </div>
-        <button class="topbar-toggler more">
-          <i class="gg-more-vertical-alt"></i>
-        </button>
       </div>
       <!-- End Logo Header -->
     </div>
@@ -74,7 +45,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#exchange" onclick="window.location.href='index.html#exchange'">
+            <a href="exchangerate.html">
               <i class="fas fa-exchange-alt"></i>
               <p>Currency Exchange</p>
             </a>
@@ -92,7 +63,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#about" onclick="window.location.href='index.html#about'">
+            <a href="about.html">
               <i class="fas fa-info-circle"></i>
               <p>About</p>
             </a>

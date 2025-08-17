@@ -230,6 +230,10 @@
             border-radius: 2px;
         }
     </style>
+
+    <!-- for icon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
 </head>
 <body>
     <div class="wrapper">
@@ -246,49 +250,38 @@
                 height="20"
               />
             </a>
-            <div class="nav-toggle">
-              <button class="btn btn-toggle toggle-sidebar">
-                <i class="gg-menu-right"></i>
-              </button>
-              <button class="btn btn-toggle sidenav-toggler">
-                <i class="gg-menu-left"></i>
-              </button>
-            </div>
-            <button class="topbar-toggler more">
-              <i class="gg-more-vertical-alt"></i>
-            </button>
           </div>
           <!-- End Logo Header -->
         </div>
         <div class="sidebar-wrapper scrollbar scrollbar-inner">
           <div class="sidebar-content">
             <ul class="nav nav-secondary">
-              <li class="nav-item active">
-                <a href="index.html" onclick="showPage('dashboard')">
+              <li class="nav-item ">
+                <a href="index.html">
                   <i class="fas fa-home"></i>
                   <p>Dashboard</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#exchange" onclick="window.location.href='index.html#exchange'">
+                <a href="exchangerate.html">
                 <i class="fas fa-exchange-alt"></i>
                 <p>Currency Exchange</p>
                 </a>
             </li>
-              <li class="nav-item">
-                <a href="chatbot.html" onclick="showPage('Chatbot')">
+              <li class="nav-item active">
+                <a href="chatbot.html">
                   <i class="fas fa-robot"></i>
                   <p>Chatbot</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="news.html" onclick="showPage('news')">
+                <a href="news.html" >
                   <i class="fas fa-newspaper"></i>
                   <p>News</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#about" onclick="showPage('about')">
+                <a href="about.html">
                   <i class="fas fa-info-circle"></i>
                   <p>About</p>
                 </a>

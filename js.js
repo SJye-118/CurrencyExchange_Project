@@ -79,15 +79,15 @@ class CurrencyExchange {
         });
 
         // Set default values
-        fromSelect.value = 'USD';
+        fromSelect.value = 'MYR';
         toSelect.value = 'EUR';
-        chartBaseSelect.value = 'EUR';
+        chartBaseSelect.value = 'MYR';
         chartTargetSelect.value = 'USD';
     }
 
     async loadLatestRates() {
         try {
-            const response = await fetch(`${this.baseUrl}/latest`);
+            const response = await fetch(`${this.baseUrl}/latest?from=MYR`);
             const data = await response.json();
             this.displayRates(data);
         } catch (error) {
@@ -163,22 +163,6 @@ class CurrencyExchange {
             </div>
         `;
         resultDiv.style.display = 'block';
-    }
-
-    swapCurrencies() {
-        const fromCurrency = document.getElementById('fromCurrency');
-        const toCurrency = document.getElementById('toCurrency');
-        
-        const temp = fromCurrency.value;
-        fromCurrency.value = toCurrency.value;
-        toCurrency.value = temp;
-        
-        this.convertCurrency();
-    }
-
-    displayError(message) {
-        const container = document.getElementById('ratesContainer');
-        container.innerHTML = `<div class="error">${message}</div>`;
     }
 
     async updateChart() {
@@ -421,3 +405,75 @@ window.addEventListener('load', () => {
         window.currencyExchangeApp = new CurrencyExchange();
     }
 });
+
+
+document.addEventListener('DOMContentLoaded', function() {
+      // Wait for the main CurrencyExchange class to be loaded
+      setTimeout(() => {
+        // Ensure swap button works
+        const swapBtn = document.getElementById('swapBtn');
+        const fromCurrency = document.getElementById('fromCurrency');
+        const toCurrency = document.getElementById('toCurrency');
+        const fromAmount = document.getElementById('fromAmount');
+        
+        if (swapBtn) {
+          swapBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Add visual feedback
+            swapBtn.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+              swapBtn.style.transform = 'scale(1)';
+            }, 150);
+            
+            // Perform the swap
+            const tempValue = fromCurrency.value;
+            fromCurrency.value = toCurrency.value;
+            toCurrency.value = tempValue;
+            
+            // Trigger conversion after swap
+            if (window.currencyExchangeApp && typeof window.currencyExchangeApp.convertCurrency === 'function') {
+              window.currencyExchangeApp.convertCurrency();
+            }
+            
+            // Alternative: trigger change events
+            fromCurrency.dispatchEvent(new Event('change'));
+            toCurrency.dispatchEvent(new Event('change'));
+          });
+        }
+        
+        // Auto-convert on page load if amount is set
+        if (fromAmount && fromAmount.value && window.currencyExchangeApp) {
+          window.currencyExchangeApp.convertCurrency();
+        }
+        
+        // Enhanced input handling
+        if (fromAmount) {
+          fromAmount.addEventListener('input', function() {
+            if (this.value && this.value > 0) {
+              if (window.currencyExchangeApp) {
+                window.currencyExchangeApp.convertCurrency();
+              }
+            } else {
+              // Show default message when no amount
+              document.getElementById('result').innerHTML = `
+                <div class="default-result">
+                  Enter an amount to see the conversion result
+                </div>
+              `;
+            }
+          });
+        }
+        
+        // Auto-convert when currencies change
+        [fromCurrency, toCurrency].forEach(select => {
+          if (select) {
+            select.addEventListener('change', function() {
+              if (fromAmount.value && fromAmount.value > 0 && window.currencyExchangeApp) {
+                window.currencyExchangeApp.convertCurrency();
+              }
+            });
+          }
+        });
+      }, 1000);
+    });

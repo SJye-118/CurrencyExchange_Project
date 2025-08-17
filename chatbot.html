@@ -18,10 +18,15 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background-color: #F5F7FD;
-            height: 100vh;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .main-content-center {
             display: flex;
             justify-content: center;
             align-items: center;
+            min-height: 100vh;
         }
 
         .chatbot-container {
@@ -236,63 +241,64 @@
 
 </head>
 <body>
-    <div class="wrapper">
-      <!-- Sidebar -->
-      <div class="sidebar" data-background-color="dark">
-        <div class="sidebar-logo">
-          <!-- Logo Header -->
-          <div class="logo-header" data-background-color="dark">
-            <a href="index.html" class="logo">
-              <img
-                src="logo.jpg"
-                alt="navbar brand"
-                class="navbar-brand"
-                height="20"
-              />
-            </a>
-          </div>
-          <!-- End Logo Header -->
-        </div>
-        <div class="sidebar-wrapper scrollbar scrollbar-inner">
-          <div class="sidebar-content">
-            <ul class="nav nav-secondary">
-              <li class="nav-item ">
-                <a href="index.html">
-                  <i class="fas fa-home"></i>
-                  <p>Dashboard</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="exchangerate.html">
-                <i class="fas fa-exchange-alt"></i>
-                <p>Currency Exchange</p>
-                </a>
-            </li>
-              <li class="nav-item active">
-                <a href="chatbot.html">
-                  <i class="fas fa-robot"></i>
-                  <p>Chatbot</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="news.html" >
-                  <i class="fas fa-newspaper"></i>
-                  <p>News</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="about.html">
-                  <i class="fas fa-info-circle"></i>
-                  <p>About</p>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <!-- End Sidebar -->
+        <div class="wrapper">
+            <!-- Sidebar -->
+            <div class="sidebar" data-background-color="dark">
+                <div class="sidebar-logo">
+                    <!-- Logo Header -->
+                    <div class="logo-header" data-background-color="dark">
+                        <a href="index.html" class="logo">
+                            <img
+                                src="logo.jpg"
+                                alt="navbar brand"
+                                class="navbar-brand"
+                                height="50px"
+                            />
+                        </a>
+                    </div>
+                    <!-- End Logo Header -->
+                </div>
+                <div class="sidebar-wrapper scrollbar scrollbar-inner">
+                    <div class="sidebar-content">
+                        <ul class="nav nav-secondary">
+                            <li class="nav-item ">
+                                <a href="index.html">
+                                    <i class="fas fa-home"></i>
+                                    <p>Dashboard</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="exchangerate.html">
+                                <i class="fas fa-exchange-alt"></i>
+                                <p>Currency Exchange</p>
+                                </a>
+                        </li>
+                            <li class="nav-item active">
+                                <a href="chatbot.html">
+                                    <i class="fas fa-robot"></i>
+                                    <p>Chatbot</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="news.html" >
+                                    <i class="fas fa-newspaper"></i>
+                                    <p>News</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="about.html">
+                                    <i class="fas fa-info-circle"></i>
+                                    <p>About</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- End Sidebar -->
 
-    <div class="chatbot-container">
+            <div class="main-content-center">
+                <div class="chatbot-container">
         <div class="chat-header">
             <h2>🤖 AI Assistant</h2>
             <div class="status">
@@ -333,7 +339,8 @@
                 ➤
             </button>
         </div>
-    </div>
+                </div>
+            </div>
 
     <script>
         class Chatbot {
@@ -503,7 +510,7 @@
                         return `Today's date is ${new Date().toLocaleDateString()}`;
                     }
                 }
-                return "I'm an AI chatbot for currency exchange. Try asking: 'Convert 100 USD to MYR and EUR', 'What was USD to MYR last year', or 'Exchange rate EUR to USD'.";
+                return "I'm an AI chatbot for currency exchange. Try asking: 'Convert 100 USD to MYR and EUR', 'What was USD to MYR on (Specific date Exp 2024-04-06)', or 'Exchange rate EUR to USD'.";
             }
 
             showTypingIndicator() {

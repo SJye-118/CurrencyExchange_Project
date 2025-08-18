@@ -1,5 +1,5 @@
   // ================= GLOBAL CONFIG (single source of truth) =================
-  window.AppConfig = { FASTFOREX_KEY: "fc4d8c669d-af277e8402-t0rqs9" }; // <- put your key here
+  window.AppConfig = { FASTFOREX_KEY: "c79f5a1f3d-0b4acae3f4-t15yui" }; // <- put your key here
 
   // ================ UTILITIES (shared, no global collisions) ================
   const FastForex = (() => {

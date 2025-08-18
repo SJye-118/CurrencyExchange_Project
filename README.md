@@ -33,7 +33,7 @@
 
 ## ✍️ Customization Notes
 
-* UI template was sourced from: \[Insert Template Source Name and URL]
+* UI template was sourced from: \[(https://themewagon.com/themes/kaiadmin/)]
 * Customization highlights:
 
   * API integration using native JavaScript (`fetch`)

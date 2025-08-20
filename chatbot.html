@@ -9,6 +9,25 @@
     <link rel="stylesheet" href="assets/css/plugins.min.css" />
     <link rel="stylesheet" href="assets/css/kaiadmin.min.css" />
     <style>
+        .prebuilt-messages {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        .prebuilt-btn {
+            background: #2563eb;
+            color: #fff;
+            border: none;
+            border-radius: 18px;
+            padding: 8px 16px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .prebuilt-btn:hover {
+            background: #1e40af;
+        }
         * {
             margin: 0;
             padding: 0;
@@ -31,7 +50,7 @@
 
         .chatbot-container {
             width: 400px;
-            height: 600px;
+            height: 800px;
             background: white;
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
@@ -298,8 +317,8 @@
             <!-- End Sidebar -->
 
             <div class="main-content-center">
-                <div class="chatbot-container">
-        <div class="chat-header">
+        <div class="chatbot-container">
+    <div class="chat-header">
             <h2>🤖 AI Assistant</h2>
             <div class="status">
                 <span class="status-dot"></span>
@@ -308,7 +327,7 @@
         </div>
         
         <div class="welcome-message">
-            👋 Hello! I'm your AI assistant. Ask me anything and I'll do my best to help you!
+            👋 Hello! I'm your AI assistant. Ask me anything and I'll do my best to help you! The currency currently supported are the same as the currency exchange pages so some currency are not implemented Please be aware.
         </div>
         
         <div class="chat-messages" id="chatMessages">
@@ -339,11 +358,17 @@
                 ➤
             </button>
         </div>
+        <div class="prebuilt-messages">
+            <button class="prebuilt-btn" data-msg="Convert 100 MYR to USD">Convert 100 MYR to USD</button>
+            <button class="prebuilt-btn" data-msg="What was 1000 JPY to EUR on 2022-08-10">What was 1000 JPY to EUR on 2022-08-10</button>
+            <button class="prebuilt-btn" data-msg="Exchange rate GBP to SGD">Exchange rate GBP to SGD</button>
+            <button class="prebuilt-btn" data-msg="Convert 50 USD to THB and CNY">Convert 50 USD to THB and CNY</button>
+        </div>
                 </div>
             </div>
 
     <script>
-        class Chatbot {
+    class Chatbot {
             constructor() {
                 this.messagesContainer = document.getElementById('chatMessages');
                 this.messageInput = document.getElementById('messageInput');
@@ -358,6 +383,13 @@
                     if (e.key === 'Enter') {
                         this.sendMessage();
                     }
+                });
+                // Prebuilt message buttons
+                document.querySelectorAll('.prebuilt-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        this.messageInput.value = btn.getAttribute('data-msg');
+                        this.sendMessage();
+                    });
                 });
             }
 
@@ -380,17 +412,15 @@
                 }, Math.random() * 1000 + 500);
             }
 
+
             addMessage(sender, text) {
                 const messageDiv = document.createElement('div');
                 messageDiv.className = `message ${sender}`;
-
                 const bubbleDiv = document.createElement('div');
                 bubbleDiv.className = 'message-bubble';
                 bubbleDiv.textContent = text;
-
                 messageDiv.appendChild(bubbleDiv);
                 this.messagesContainer.appendChild(messageDiv);
-
                 this.scrollToBottom();
             }
 
@@ -510,7 +540,7 @@
                         return `Today's date is ${new Date().toLocaleDateString()}`;
                     }
                 }
-                return "I'm an AI chatbot for currency exchange. Try asking: 'Convert 100 USD to MYR and EUR', 'What was USD to MYR on (Specific date Exp 2024-04-06)', or 'Exchange rate EUR to USD'.";
+                return "I'm an AI chatbot for currency exchange. Try asking: 'Convert 100 USD to MYR and EUR', 'What was USD to MYR last year', or 'Exchange rate EUR to USD'.";
             }
 
             showTypingIndicator() {

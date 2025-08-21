@@ -1,14 +1,103 @@
 :root { --card-bg:#fff; --text:#222; --muted:#6b7280; --shadow:0 4px 12px rgba(0,0,0,.08); }
-  .grid0{display:grid;gap:20px}
-  .kpis0{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
-  .card0{background:var(--card-bg);border-radius:14px;box-shadow:var(--shadow);padding:18px}
-  .kpi-title0{font-size:12px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
-  .kpi-value0{font-size:28px;font-weight:700;margin-top:6px}
-  .updated0{font-size:12px;color:var(--muted);margin-top:6px}
-  .charts0{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
-  canvas{max-width:100%;height:380px}
-  .controls0{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px}
-  select{padding:8px 10px;border-radius:8px;border:1px solid #e5e7eb;background:#fff}
-  table{width:100%;border-collapse:collapse}
-  th,td{padding:10px;border-bottom:1px solid #eef2f7;text-align:center}
-  th{background:#f9fbff;font-weight:600}
+
+.grid0{
+	display:grid;gap:20px
+}
+	
+.kpis0{
+	grid-template-columns:repeat(auto-fit,minmax(220px,1fr))
+}
+	
+.card0{
+	background:var(--card-bg);border-radius:14px;box-shadow:var(--shadow);padding:18px
+}
+	
+.kpi-title0{
+	font-size:12px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase
+}
+	
+.kpi-value0{
+	font-size:28px;font-weight:700;margin-top:6px
+}
+	
+.updated0{
+	font-size:12px;color:var(--muted);margin-top:6px
+}
+	
+.charts0{
+	grid-template-columns:repeat(auto-fit,minmax(320px,1fr))
+}
+	
+canvas{max-width:100%;height:380px}
+	
+.controls0{
+	display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px
+}
+	
+select{padding:8px 10px;border-radius:8px;border:1px solid #e5e7eb;background:#fff}
+	
+table{width:100%;border-collapse:collapse}
+	
+th,td{padding:10px;border-bottom:1px solid #eef2f7;text-align:center}
+	
+th{background:#f9fbff;font-weight:600}
+
+/* Typography Improvements */
+body {
+  font-family: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
+  color: var(--text);
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+h1, h2, h3, h4 {
+  font-family: "Poppins", "Segoe UI", sans-serif;
+  font-weight: 600;
+  color: #1f2937; /* darker for better contrast */
+  margin-bottom: 12px;
+}
+
+h1 {
+  font-size: 2rem; /* ~32px */
+}
+
+h2 {
+  font-size: 1.5rem; /* ~24px */
+}
+
+h3 {
+  font-size: 1.25rem; /* ~20px */
+}
+
+/* KPI Cards */
+.kpi-title0 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+
+.kpi-value0 {
+  font-size: 30px;
+  font-weight: 700;
+  color: #111827; /* stronger black */
+}
+
+/* Table font */
+table {
+  font-size: 14px;
+}
+
+th {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+td {
+  font-size: 13.5px;
+}
+
+/* Map section */
+#currency-map {
+  font-family: "Inter", sans-serif;
+}

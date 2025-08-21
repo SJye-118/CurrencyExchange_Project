@@ -216,3 +216,89 @@
       setInterval(updateRate, 60_000);
     });
   })();
+	
+		// Initialize Map
+				var map = L.map('currency-map').setView([20, 0], 2); // Centered world view
+
+				// Add Tile Layer (background map)
+				L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+					attribution: '© OpenStreetMap'
+				}).addTo(map);
+				
+				// Save default view
+				const defaultCenter = [20, 0];
+				const defaultZoom = 2;
+
+				// Reset map button
+				document.getElementById('resetMap').addEventListener('click', () => {
+					map.setView(defaultCenter, defaultZoom);
+				});
+
+				// List of countries with currencies
+				const countries = [
+					{ name: "United States", currency: "USD", coords: [37.0902, -95.7129] },
+					{ name: "Malaysia", currency: "MYR", coords: [4.2105, 101.9758] },
+					{ name: "European Union", currency: "EUR", coords: [50.1109, 8.6821] }, 
+					{ name: "United Kingdom", currency: "GBP", coords: [55.3781, -3.4360] },
+					{ name: "Japan", currency: "JPY", coords: [36.2048, 138.2529] },
+					{ name: "Singapore", currency: "SGD", coords: [1.3521, 103.8198] },
+					{ name: "Mexico", currency: "MXN", coords: [23.6345, -102.5528] },
+					{ name: "South Korea", currency: "KRW", coords: [35.9078, 127.7669] },
+					{ name: "Iceland", currency: "ISK", coords: [64.9631, -19.0208] },
+					{ name: "India", currency: "INR", coords: [20.5937, 78.9629] },
+					{ name: "Israel", currency: "ILS", coords: [31.0461, 34.8516] },
+					{ name: "Indonesia", currency: "IDR", coords: [-0.7893, 113.9213] },
+					{ name: "Hungary", currency: "HUF", coords: [47.1625, 19.5033] },
+					{ name: "Hong Kong", currency: "HKD", coords: [22.3193, 114.1694] },
+					{ name: "Denmark", currency: "DKK", coords: [56.2639, 9.5018] },
+					{ name: "Czech Republic", currency: "CZK", coords: [49.8175, 15.4730] },
+					{ name: "China", currency: "CNY", coords: [35.8617, 104.1954] },
+					{ name: "Switzerland", currency: "CHF", coords: [46.8182, 8.2275] },
+					{ name: "Canada", currency: "CAD", coords: [56.1304, -106.3468] },
+					{ name: "Brazil", currency: "BRL", coords: [-14.2350, -51.9253] },
+					{ name: "Bulgaria", currency: "BGN", coords: [42.7339, 25.4858] },
+					{ name: "Australia", currency: "AUD", coords: [-25.2744, 133.7751] },
+					{ name: "South Africa", currency: "ZAR", coords: [-30.5595, 22.9375] },
+					{ name: "Turkey", currency: "TRY", coords: [38.9637, 35.2433] },
+					{ name: "Thailand", currency: "THB", coords: [15.8700, 100.9925] },
+					{ name: "Sweden", currency: "SEK", coords: [60.1282, 18.6435] },
+					{ name: "Romania", currency: "RON", coords: [45.9432, 24.9668] },
+					{ name: "Poland", currency: "PLN", coords: [51.9194, 19.1451] },
+					{ name: "Philippines", currency: "PHP", coords: [12.8797, 121.7740] },
+					{ name: "New Zealand", currency: "NZD", coords: [-40.9006, 174.8860] },
+					{ name: "Norway", currency: "NOK", coords: [60.4720, 8.4689] }
+				];
+
+				// Add markers with hover effect
+				countries.forEach(c => {
+					let marker = L.circleMarker(c.coords, {
+						radius: 8,
+						fillColor: "#007BFF",
+						color: "#000",
+						weight: 1,
+						opacity: 1,
+						fillOpacity: 0.7
+					})
+					.addTo(map)
+					.bindTooltip(`<b>${c.name}</b><br>Currency: ${c.currency}`, {
+						permanent: false,
+						direction: "top"
+					});
+
+					// Hover effect
+					marker.on("mouseover", function() {
+						this.setStyle({
+							fillColor: "#FFD700", // gold color when hovered
+							radius: 12,           // bigger circle
+							weight: 2
+						});
+					});
+
+					marker.on("mouseout", function() {
+						this.setStyle({
+							fillColor: "#007BFF",
+							radius: 8,
+							weight: 1
+						});
+					});
+				});
